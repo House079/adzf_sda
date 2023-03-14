@@ -1,0 +1,137 @@
+
+<script>
+  var user_id = "{{ user_id }}".split(";$");
+  var first_name = "{{ first_name }}".split(";$");
+  var last_name = "{{ last_name }}".split(";$");
+  var website = "{{ website }}".split(";$");
+  var position = "{{ position }}".split(";$");
+  var date = "{{ date }}".split(";$");
+</script>
+
+
+
+<body>
+
+  <main>
+   <div class="container"  style="width: 200%;">
+    <div style="width: 80%; margin: auto">
+
+
+      <div id="testcase_filter" style="padding-top:40px; display:inline-block">
+        <h5 style="display:inline-block; padding-right:20px">User Removal Page</h5>
+      </div>
+
+      <div id="server-messages"></div>
+
+      <table class="striped centered" style="width: 100%; margin-top: 60px">
+
+        <thead>
+          <tr>
+            <th id="select">Select</th>
+            <th id="user_id">user_id</th>
+            <th id="name">First Name</th>
+            <th id="surname">Last Name</th>
+            <th id="webiste">User website</th>
+            <th id="profesion">User profession</th>
+            <th id="date">Registration date</th>
+          </tr>
+        </thead>
+
+        <tbody id="user_list_container">
+          <tr>
+            <td>Temp Content</td>
+            <td>Temp Content</td>
+            <td>Temp Content</td>
+            <td>Temp Content</td>
+            <td>Temp Content</td>
+            <td>Temp Content</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div style="float:right; padding-top:10px; padding-bottom:20px">
+      <button class="btn" title="remove Users" type="submit" name="action" id="remove_user_button">Remove Selected
+      </button>
+
+    </div>
+
+    </div>
+  </div>
+  </main>
+
+
+</body>
+
+<script>
+
+  document.getElementById("remove_user_button").addEventListener("click", function(){
+             remove_user()
+         });
+
+
+
+  const user_container = document.getElementById("user_list_container");
+  user_container.innerHTML = " ";
+
+  console.log(user_container)
+
+  for (var i=0; i < user_id.length; i++){
+
+          // Creating a table row element
+          const tr = document.createElement("tr");
+          tr.className = "ts_row";
+
+          // Section for check boxes for approval of users
+          const usr_select = document.createElement("td");
+          const user_checkbox_select = document.createElement("input");
+          user_checkbox_select.type = "checkbox";
+          user_checkbox_select.id = "used_id_" + user_id[i];
+          usr_select.setAttribute( "title", "Select user to remove" );
+          usr_select.appendChild(user_checkbox_select);
+          usr_select.id = "usr_select_" + user_id[i];
+          var usr_select_cb_label = document.createElement("label");
+          usr_select_cb_label.htmlFor = "used_id_" + user_id[i];
+          usr_select.appendChild(usr_select_cb_label);
+
+          // Section for user id Display
+          const remove_table_id = document.createElement("td");
+          remove_table_id.textContent = user_id[i];
+          remove_table_id.id = "remove_table_id_" + user_id[i]
+
+          // Section for User Name Display
+          const remove_user_name = document.createElement("td");
+          remove_user_name.textContent = first_name[i];
+          remove_user_name.id = "remove_user_name_" + first_name[i]
+
+          // Section for Surname Display
+          const surname_last_name = document.createElement("td");
+          surname_last_name.textContent = last_name[i];
+          surname_last_name.id = "surname_last_name_" + last_name[i]
+
+          // Section for webiste Display
+          const remove_table_website = document.createElement("td");
+          remove_table_website.textContent = website[i];
+          remove_table_website.id = "remove_table_website" + website[i]
+
+          // Section for position display
+          const remove_table_position = document.createElement("td");
+          remove_table_position.textContent = position[i];
+          remove_table_position.id = "remove_table_website" + position[i]
+
+          // Section for joined date Display
+          const remove_table_date = document.createElement("td");
+          var time_date = new Date(date[i])
+          remove_table_date.textContent = time_date.toLocaleString("en-GB");
+
+            tr.appendChild(usr_select);
+            tr.appendChild(remove_table_id);
+            tr.appendChild(remove_user_name);
+            tr.appendChild(surname_last_name);
+            tr.appendChild(remove_table_website);
+            tr.appendChild(remove_table_position);
+            tr.appendChild(remove_table_date);
+            user_container.appendChild(tr);
+
+          }
+</script>
