@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'schedule',
     'cal.apps.CalConfig',
-    'cal2.apps.Cal2Config'
+    'cal2.apps.Cal2Config',
 ]
 
 MIDDLEWARE = [
