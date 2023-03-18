@@ -8,6 +8,10 @@ from django.utils.safestring import mark_safe
 from .forms import EventForm
 from .models import Event
 from .utils import Calendar
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from salon.models import Salon
+from users.models import CustomUser
 
 def index(request):
     return HttpResponse('hello')
@@ -59,3 +63,11 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
+
+
+def get_employees(request):
+    salon_id = request.GET.get('salon_id')
+    salon = get_object_or_404(Salon, id=salon_id)
+    employees = CustomUser.objects.filter(salon=salon)
+    data = [{'id': e.id, 'name': e.name} for e in employees]
+    return JsonResponse(data, safe=False)

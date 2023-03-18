@@ -13,7 +13,7 @@ class CustomUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(
         default=datetime.now, blank=True)  # To add then run migrations
-    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name='salon')
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name='users_salon')
 
     # objects = CustomUserManager()
 

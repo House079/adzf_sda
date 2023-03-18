@@ -16,4 +16,31 @@ Event
     <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
   </table>
 </form>
-{% endblock %}
+
+        <script>
+            $(document).ready(function() {
+              $('#id_salon').change(function() {
+                var salonId = $(this).val();
+                if (salonId) {
+                  $.ajax({
+                    url: '/cal/get_employees/',
+                    data: {
+                      'salon_id': salonId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                      var employeeSelect = $('#id_employee');
+                      employeeSelect.empty();
+                      $.each(data, function(key, value) {
+                        employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name));
+                      });
+                    }
+                  });
+                }
+              });
+            });
+
+        </script>
+
+
+{% endblock content %}
