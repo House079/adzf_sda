@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 'schedule',
     'cal.apps.CalConfig',
     'cal2.apps.Cal2Config',
+    'prices',
 ]
 
 MIDDLEWARE = [

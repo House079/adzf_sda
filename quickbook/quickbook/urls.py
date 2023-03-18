@@ -21,4 +21,5 @@ urlpatterns = [
     path('salon/', include('salon.urls', namespace='salon')),
     path('cal/', include('cal.urls')),
     path('', include('cal2.urls'))
+    path('prices/', include('prices.urls', namespace='prices'))
 ]
