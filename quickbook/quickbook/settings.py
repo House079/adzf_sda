@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cal.apps.CalConfig',
     'cal2.apps.Cal2Config',
     'prices',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'quickbook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
