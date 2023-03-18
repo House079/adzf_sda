@@ -26,7 +26,7 @@ class SalonList(ListView):
 class SalonUpdate(UpdateView):
     model = Salon
     template_name = 'salon/salon_update_form.html'
-    fields = ('name', 'city', 'address', 'opening_hours')
+    fields = ('name', 'city', 'address', 'details')
     success_url = reverse_lazy('salon:send_salon')
 
 

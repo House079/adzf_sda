@@ -2,7 +2,10 @@ import datetime
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import SET_NULL
 from django.urls import reverse
+from salon.models import Salon
+from users.models import CustomUser
 
 
 class Event(models.Model):
@@ -11,8 +14,8 @@ class Event(models.Model):
     day = models.DateField('Day of the appointment')
     start_time = models.TimeField('Start time')
     end_time = models.TimeField('End time')
-    # salon =
-    # employee =
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name="salon")
+    employee = models.ForeignKey(CustomUser, on_delete=SET_NULL, null=True, related_name="CustomUser")
 
 
     @property
