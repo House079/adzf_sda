@@ -1,0 +1,67 @@
+// modifikators
+.icon {
+  display: inline-block;
+  height: 20px;
+}
+
+// display
+.hidden {
+  display: none !important;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+// size
+.width-100 {
+  width: 100%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+// Paddings
+
+// medium
+.pd-m {
+  padding: 10px;
+}
+
+.pd-r-m {
+  padding-right: 10px;
+}
+
+.pd-l-m {
+  padding-left: 10px;
+}
+
+.pd-t-m {
+  padding-top: 10px;
+}
+
+.pd-b-m {
+  padding-bottom: 10px;
+}
+
+
+.pointer {
+  cursor: pointer;
+}
