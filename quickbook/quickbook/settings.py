@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'schedule',
+    'cal.apps.CalConfig',
+    'cal2.apps.Cal2Config',
 ]
 
 MIDDLEWARE = [
