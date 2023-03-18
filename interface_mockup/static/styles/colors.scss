@@ -1,0 +1,44 @@
+@import "variables";
+
+.box-shadow {
+  box-shadow: 0 2px 6px $gray2;
+}
+
+.white-bg {
+  background-color: white;
+}
+
+// gray 1
+.color_gray_1_bd {
+  border: 1px solid $gray1;
+}
+
+.color_gray_1_bg {
+  background-color: $gray1;
+}
+
+// gray 2
+.color_gray_2_bd {
+  border: 1px solid $gray2;
+}
+
+.color_gray_2_bg {
+  background-color: $gray2;
+}
+
+// color A
+.color_a_bg {
+  background-color: $colorA;
+}
+
+// color B
+.color_b_bg {
+  background-color: $colorB;
+}
+
+// gradient
+.gradient_bg {
+  background: $colorB;
+  background: linear-gradient(0deg, $colorB 0%, $colorA 100%);
+}
+

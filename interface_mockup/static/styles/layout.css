@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvitica, serif;
+  font-size: 17px;
+}
+@media only screen and (max-width: 375px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 50px auto;
+  grid-template-areas: "navbar navbar " "navpane main";
+}
+@media only screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 100% auto;
+  }
+}
+.container .nav-bar {
+  grid-area: navbar;
+  color: #8292a6;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #8292a6;
+  padding: 10px;
+  justify-content: space-between;
+}
+.container .nav-pane {
+  grid-area: navpane;
+  display: grid;
+  grid-template-rows: 50px auto;
+  overflow-x: clip;
+}
+@media only screen and (max-width: 768px) {
+  .container .nav-pane {
+    width: 100%;
+    height: calc(100vh - 50px);
+  }
+}
+.container .nav-pane .nav-pane__nav {
+  height: 100%;
+  white-space: nowrap;
+  padding-top: 50px;
+  color: #fff;
+}
+.container .nav-pane .nav-pane__nav .nav-pane__nav__btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+.container .nav-pane .nav-pane__nav .nav-pane__nav__btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.container .main {
+  grid-area: main;
+  background-color: #eceff3;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.container-hidden-nav-pane {
+  grid-template-columns: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .container-shown-nav-pane .main {
+    padding: 0 !important;
+  }
+}
+
+/*# sourceMappingURL=layout.css.map */

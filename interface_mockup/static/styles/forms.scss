@@ -1,0 +1,174 @@
+@import 'variables';
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+
+  .checkbox__checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkbox__checkbox:checked ~ .checkbox__checkmark {
+    background-color: $colorA;
+  }
+
+  .checkbox__checkbox:checked ~ .checkbox__checkmark:after {
+    display: block;
+  }
+
+  .checkbox__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: $colorA;
+    border-radius: 5px;
+  }
+
+  .checkbox__checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+}
+
+// Radio
+.radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .radio__checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: $colorA;
+    border-radius: 50%;
+  }
+
+  input:checked ~ .radio__checkbox {
+    background-color: #fff;
+    border: 6px solid $colorA;
+  }
+
+  .radio__checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+}
+
+
+// Inputs
+
+.label {
+  position: relative;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 5px;
+  top: 0;
+  left: 2px;
+  text-overflow: ellipsis;
+  color: $gray2;
+}
+
+.label-file-input {
+  top: 0;
+}
+
+.input, .textarea, .select {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 12px;
+  padding: 7px;
+  border: 1px solid $gray2;
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.input:disabled,
+.textarea:disabled,
+.select:disabled {
+  background-color: $gray1;
+}
+
+input:focus.input,
+textarea:focus.textarea,
+select:focus.select {
+  box-shadow: 0 0 3px $colorA;
+}
+
+input[type=file].input {
+  padding: 0;
+  border: none;
+  min-height: unset;
+  min-width: unset;
+  background-color: unset;
+  display: inline-block;
+  width: auto;
+}
+
+input[type=file].input:focus {
+  box-shadow: none;
+}
+
+.btn {
+  padding: 10px;
+  background-color: $colorA;
+  color: #fff;
+  outline: 0;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  min-width: 150px;
+}
+
+.btn:hover {
+  background-color: $colorB;
+}
+
+.btn:disabled {
+  background-color: $gray2;
+}
