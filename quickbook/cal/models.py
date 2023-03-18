@@ -14,8 +14,8 @@ class Event(models.Model):
     day = models.DateField('Day of the appointment')
     start_time = models.TimeField('Start time')
     end_time = models.TimeField('End time')
-    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name="salon")
-    employee = models.ForeignKey(CustomUser, on_delete=SET_NULL, null=True, related_name="CustomUser")
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name="events_salon")
+    employee = models.ForeignKey(CustomUser, on_delete=SET_NULL, null=True, related_name="events_employee")
 
 
     @property
