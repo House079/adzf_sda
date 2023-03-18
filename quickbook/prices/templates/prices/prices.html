@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Cennik usług:</h1>
+
+<p></p>
+    <table border="solid">
+    <tr>
+        <td>Nazwa</td>
+        <td>Cena</td>
+        <td>Czas trwania</td>
+    </tr>
+    {% for event in object_list %}
+    <tr>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.price }}</td>
+        <td>{{ event.duration }}</td>
+    </tr>
+    {% endfor %}
+    <<p><a  href="{% url 'prices:create' %}">Dodaj event/usługę</a></p>
+</table>
+</body>
+</html>
