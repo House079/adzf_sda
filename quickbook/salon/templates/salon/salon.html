@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Salon</h1>
+<form method="post">
+    <table>{{ form }}</table>
+    {% csrf_token %}
+    <input type="submit" value="Dodaj salon">
+</form>
+<p></p>
+Salony:
+    <table border="solid">
+    <tr>
+        <td>Nazwa</td>
+        <td>Miasto</td>
+        <td>Adres</td>
+    </tr>
+    {% for salon in salons %}
+    <tr>
+        <td>{{ salon.name }}</td>
+        <td>{{ salon.city }}</td>
+        <td>{{ salon.address }}</td>
+        <td>
+            <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
+            <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
+        </td>
+    </tr>
+
+{% empty %}
+<p>Obecnie nie ma żadnych salonów...</p>
+{% endfor %}
+
+</table>
+</body>
+</html>
