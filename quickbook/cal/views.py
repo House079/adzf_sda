@@ -11,7 +11,7 @@ from .utils import Calendar
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from salon.models import Salon
-from users.models import CustomUser
+from users.models import Employee
 
 def index(request):
     return HttpResponse('hello')
@@ -68,6 +68,6 @@ def event(request, event_id=None):
 def get_employees(request):
     salon_id = request.GET.get('salon_id')
     salon = get_object_or_404(Salon, id=salon_id)
-    employees = CustomUser.objects.filter(salon=salon)
+    employees = Employee.objects.filter(salon=salon)
     data = [{'id': e.id, 'name': e.name} for e in employees]
     return JsonResponse(data, safe=False)

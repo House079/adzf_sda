@@ -7,13 +7,13 @@ from django.db import models
 from salon.models import Salon
 
 
-class CustomUser(AbstractBaseUser):
+class Employee(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(
         default=datetime.now, blank=True)  # To add then run migrations
-    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name='users_salon')
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name='employees')
 
     # objects = CustomUserManager()
 

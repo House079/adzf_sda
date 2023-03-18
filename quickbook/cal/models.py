@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import SET_NULL
 from django.urls import reverse
 from salon.models import Salon
-from users.models import CustomUser
+from users.models import Employee
 
 
 class Event(models.Model):
@@ -14,8 +14,8 @@ class Event(models.Model):
     day = models.DateField('Day of the appointment')
     start_time = models.TimeField('Start time')
     end_time = models.TimeField('End time')
-    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name="events_salon")
-    employee = models.ForeignKey(CustomUser, on_delete=SET_NULL, null=True, related_name="events_employee")
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=SET_NULL, null=True)
 
 
     @property
