@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import user, remove_user, remove_users_be
-urlpatterns = [
-    path(' ', user, name='user'),
+from . import views
 
-    path('register/', user, name='register'),
-    path('remove/', remove_user, name='remove'),
-    path('remove_users_be/', remove_users_be, name='remove'),
+app_name = 'users'  # To biedzie przestrzeń nazw w aplikacji main do uniknięcia niejednoznaczności
+
+urlpatterns = [
+    path('register', views.SignUp.as_view(), name="register"),
+    path('user_panel', views.UserPanel.as_view(), name="user_panel"),
 ]
 

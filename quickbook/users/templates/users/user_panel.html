@@ -1,0 +1,10 @@
+<table class="table>">
+    <tr>
+        <td>Użytkownik</td><td>{{ user.username }}</td>
+    </tr>
+    <tr>
+        <td>email</td><td>{{ user.email }}</td>
+    </tr>
+</table>
+
+<p><a href="{% url 'password_change' %}">Zmień hasło</a></p>
