@@ -31,7 +31,3 @@ class EventForm(forms.ModelForm):
         pass
     elif self.instance.pk:
       self.fields['employee'].queryset = self.instance.salon.employees.order_by('name')
-
-
-
-

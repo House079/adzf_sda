@@ -6,8 +6,6 @@ from .models import Salon
 from .forms import SalonForm
 
 
-# Create your views here.
-
 def send_salon(request):
     form = SalonForm(request.POST or None)
 

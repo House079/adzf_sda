@@ -15,5 +15,3 @@ class UpgradedUserCreationForm(UserCreationForm):
     #     ('option3', 'Option 3'),
     # ]
     # salon = forms.ChoiceField(label='Salon', choices=OPTIONS)
-
-

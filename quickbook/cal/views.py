@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 from salon.models import Salon
 from users.models import Employee
 
+
 def index(request):
     return HttpResponse('hello')
 
