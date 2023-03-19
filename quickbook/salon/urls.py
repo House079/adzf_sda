@@ -7,6 +7,7 @@ app_name = 'salon'
 
 urlpatterns = [
     path('', views.send_salon, name='send_salon'),
+    path('detail/<int:pk>', views.SalonDetail.as_view(), name='detail'),
     path('update/<int:pk>', views.SalonUpdate.as_view(), name='update'),
     path('delete/<int:pk>', views.SalonDelete.as_view(), name='delete'),
 ]

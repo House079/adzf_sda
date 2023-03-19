@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, date
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.utils.safestring import mark_safe
 from .forms import EventForm
 from .models import Event
@@ -32,6 +32,22 @@ class CalendarView(ListView):
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
+
+
+class EventList(ListView):
+    model = Event
+
+
+class EventCreate(CreateView):
+    model = Event
+
+
+class EventDetail(DetailView):
+    model = Event
+
+
+class EventDelete(DeleteView):
+    model = Event
 
 
 def prev_month(d):

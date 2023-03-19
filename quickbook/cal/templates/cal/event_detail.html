@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+        <tr>
+            <td>Nazwa</td>
+            <td>Opis</td>
+            <td>Dzień</td>
+            <td>Godzina start</td>
+            <td>Godzina end</td>
+            <td>Salon</td>
+            <td>Pracownik</td>
+        </tr>
+            <tr>
+                <td>{{ object.title }}</td>
+                <td>{{ object.description }}</td>
+                <td>{{ object.day }}</td>
+                <td>{{ object.start_time }}</td>
+                <td>{{ object.end_time }}</td>
+                <td>{{ object.salon }}</td>
+                <td>{{ object.employee }}</td>
+                <td>
+                    <a href="{% url 'cal:event_edit' event.pk %}">Zmień</a>|
+                    <a href="{% url 'cal:delete' event.pk %}">Usuń</a>|
+                    <a href="{% url 'cal:detail' event.pk %}">Pokaż</a>
+                </td>
+            </tr>
+
+    </table>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, UpdateView
+from django.views.generic import ListView, DeleteView, UpdateView, DetailView
 from .models import Salon
 from .forms import SalonForm
 
@@ -19,6 +19,9 @@ def send_salon(request):
 class SalonList(ListView):
     model = Salon
     template_name = 'salon/salon.html'
+
+class SalonDetail(DetailView):
+    model = Salon
 
 
 class SalonUpdate(UpdateView):

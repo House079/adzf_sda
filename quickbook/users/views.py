@@ -7,7 +7,7 @@ from .forms import UpgradedUserCreationForm
 
 class SignUp(CreateView):
     form_class = UpgradedUserCreationForm
-    success_url = reverse_lazy('register')
+    success_url = reverse_lazy('users:register')
     template_name = 'users/signup.html'
 
 

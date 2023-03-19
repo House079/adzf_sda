@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Appointments {% endblock title %}
+
+{% block header %} Appointments {% endblock header %}
+
+{% block content %}
+
+<p><a class="btn-dark" href="{% url 'cal:event_new' %}">Dodaj event</a></p>
+
+    <table class="table">
+        <tr>
+            <td>Nazwa</td>
+            <td>Opis</td>
+            <td>Dzień</td>
+            <td>Godzina</td>
+            <td>Salon</td>
+            <td>Pracownik</td>
+        </tr>
+        {% for event in object_list %}
+
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.day }}</td>
+                <td>{{ event.start_time }}</td>
+                <td>{{ event.salon }}</td>
+                <td>{{ event.employee }}</td>
+                <td>
+                    <a href="{% url 'cal:event_edit' event.pk %}">Zmień</a>|
+                    <a href="{% url 'cal:delete' event.pk %}">Usuń</a>|
+                    <a href="{% url 'cal:detail' event.pk %}">Pokaż</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+{% endblock content %}
