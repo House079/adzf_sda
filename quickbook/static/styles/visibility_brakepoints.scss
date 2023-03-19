@@ -1,0 +1,50 @@
+.less-than-768 {
+	display: none !important;
+}
+@media only screen and (max-width: 768px){
+	.more-than-768 {
+		display: none !important;
+	}
+	.less-than-768 {
+		display: unset !important;
+	}
+}
+
+.less-than-550 {
+	display: none !important;
+}
+@media only screen and (max-width: 550px ) {
+	.more-than-550 {
+		display: none !important;
+	}
+	.less-than-550 {
+		display: unset !important;
+	}
+}
+
+.less-than-375 {
+	display: none !important;
+}
+@media only screen and (max-width: 375px ) {
+
+	.more-than-375 {
+		display: none !important;
+	}
+	.less-than-375 {
+		display: unset !important;
+	}
+}
+
+.less-than-320 {
+	display: none !important;
+}
+@media only screen and (max-width: 320px ) {
+
+	.more-than-320 {
+		display: none !important;
+	}
+	.less-than-320 {
+		display: unset !important;
+	}
+
+}

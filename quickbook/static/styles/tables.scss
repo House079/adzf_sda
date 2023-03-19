@@ -1,0 +1,27 @@
+@import "variables";
+
+.table {
+  border-collapse: collapse;
+  max-width: 100%;
+  white-space: nowrap;
+
+  th, td {
+    padding: 4px;
+  }
+
+  th {
+    background-color: $gray2;
+    color: #fff;
+    border: 1px solid #000;
+  }
+  td {
+    border: 1px solid $gray2;
+    background-color: #fff;
+  }
+
+}
+
+.table-responsive-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
