@@ -1,5 +1,14 @@
-<form method="post">
-    <table>{{ form }}</table>
-    {% csrf_token %}
-    <input type="submit" value="Zarejestruj się">
-</form>
+{% extends 'base.html' %}
+{% block title %}Dodawanie użytkownika{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <form method="post">
+            <table>{{ form }}</table>
+            {% csrf_token %}
+            <input type="submit" value="Zarejestruj się">
+        </form>
+    </div>
+</div>
+{% endblock %}

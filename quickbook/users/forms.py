@@ -1,4 +1,4 @@
-from .models import CustomUser
+from .models import Employee
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 class UpgradedUserCreationForm(UserCreationForm):
 
     class Meta:
-        model = CustomUser
+        model = Employee
         fields = ('name', 'email', 'password1', 'password2', 'salon')
     #
     # OPTIONS = [
@@ -15,5 +15,3 @@ class UpgradedUserCreationForm(UserCreationForm):
     #     ('option3', 'Option 3'),
     # ]
     # salon = forms.ChoiceField(label='Salon', choices=OPTIONS)
-
-

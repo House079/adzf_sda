@@ -1,7 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Logowanie{% endblock %}
 
-<form method="post">
-    <table>{{ form }}</table>
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}" />
-    <input type="submit" value="Zaloguj się" />
-</form>
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <form method="post">
+            <table>{{ form }}</table>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <input type="submit" value="Zaloguj się" />
+        </form>
+    </div>
+</div>
+{% endblock %}

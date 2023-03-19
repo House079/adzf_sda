@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h3>Czy na pewno chcesz usnąć ten salon?</h3>
-<form method="post">
-    {% csrf_token %}
-    <input type="submit" value="Tak, na pewno" />
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Czy na pewno chcesz usunąć salon{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h3>Czy na pewno chcesz usnąć ten salon?</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Tak, na pewno" />
+        </form>
+    </div>
+</div>
+{% endblock %}

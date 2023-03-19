@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quick CSS</title>
-    <link rel="stylesheet" href="static/styles/main.css">
+    <title>Quick CSS | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
 
@@ -12,188 +13,34 @@
         <div class="nav-bar">
 
             <div class="flex flex-nowrap flex-align-center">
-                <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="static/icons/menu.svg">
-                <img class="icon pd-l-m more-than-375" alt="logo" src="static/images/logo_white.svg">
+                <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
+                <img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}">
             </div>
 
             <div class="flex flex-nowrap flex-align-center">
-                <div class="flex flex-nowrap flex-align-center pd-r-m">
-                    <span><strong>John Doe</strong></span>
-                </div>
-                <div class="flex flex-nowrap flex-align-center">
-                    <span class="more-than-550">Wyloguj</span>
-                    <img class="icon pd-l-m" alt="Wyloguj" src="static/icons/logout.svg">
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="flex flex-nowrap flex-align-center pd-r-m">
+                        <span><strong>{{ user }}</strong></span>
+                    </div>
+                    <div class="flex flex-nowrap flex-align-center">
+                        <span class="more-than-550">Wyloguj</span>
+                        <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
+                    </div>
+                {% endif %}
             </div>
         </div>
 
         <div id="nav-pane" class="nav-pane gradient_bg">
             <nav class="nav-pane__nav">
-                <div class="nav-pane__nav__btn">Element 1</div>
-                <div class="nav-pane__nav__btn">Element 2</div>
-                <div class="nav-pane__nav__btn">Element 3</div>
+                <a style="color: white" href="{% url 'users:register' %}"><div class="nav-pane__nav__btn">Użytkownicy</div></a>
+                <a style="color: white" href="{% url 'salon:send_salon' %}"><div class="nav-pane__nav__btn">Salony</div></a>
+                <a style="color: white" href="{% url 'cal:calendar' %}"><div class="nav-pane__nav__btn">Kalendarz</div></a>
             </nav>
         </div>
 
         <div class="main">
-
-            <!-- start of main content -->
-
-            <div class="widget-container">
-                <div class="widget box-shadow white-bg">
-                    <h1>Heding 1</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>You need do <strong>be</strong>.</p>
-                    <p><b>Bold</b> and <i>emphasis</i> gives <b><i>bold and emphasis</i></b>.</p>
-                </div>
-            </div>
-
-            <div class="widget-container-clos-2">
-
-                <div class="widget box-shadow white-bg">
-                    <h2>Common table</h2>
-                    <table class="table">
-                        <tr>
-                            <th>Table heading</th><th>Table heading</th>
-                        </tr>
-                        <tr>
-                            <td>Table row</td><td>Table row</td>
-                        </tr>
-                        <tr>
-                            <td>Table row</td><td>Table row</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="widget white-bg">
-                    <h2>Responsive table</h2>
-                    <div class="table-responsive-container">
-                        <table class="table">
-                            <tr>
-                                <th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th><th>Table heading</th>
-                            </tr>
-                            <tr>
-                                <td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td>
-                            </tr>
-                            <tr>
-                                <td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td><td>Table row</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="widget white-bg color_gray_2_bd">
-                    <div class="widget white-bg box-shadow">
-                        <h2>Heding 2</h2>
-                        <h3>Heding 3</h3>
-                        <h4>Heding 4</h4>
-                    </div>
-
-                    <h2>Blockquote</h2>
-                    <blockquote>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        <footer><cite>https://www.lipsum.com/</cite></footer>
-                    </blockquote>
-
-                    <h2>Pre</h2>
-                    <pre class="pre">const zen = koan ** 2</pre>
-                </div>
-
-
-                <div class="widget color_gray_2_bd">
-                    <h2>Forms</h2>
-
-                    <form>
-                        <label type="checkbox" class="checkbox">Label name
-                            <input type="checkbox" checked="checked" class="checkbox__checkbox">
-                            <span class="checkbox__checkmark"></span>
-                        </label>
-
-                        <label type="radio" class="radio">Label name
-                            <input type="radio" checked="checked" name="radio">
-                            <span class="radio__checkbox"></span>
-                        </label>
-
-                        <label type="radio" class="radio">Label name
-                            <input type="radio" name="radio">
-                            <span class="radio__checkbox"></span>
-                        </label>
-
-                        <label type="radio" class="radio">Label name
-                            <input type="radio" name="radio">
-                            <span class="radio__checkbox"></span>
-                        </label>
-
-                        <label class="label">Select</label>
-                        <select class="select">
-                            <option>cherrys</option>
-                            <option>apples</option>
-                        </select>
-
-
-                        <label class="label">Color input</label>
-                        <input type="color" class="input" value="#ff0000">
-
-                        <label class="label">Date input</label>
-                        <input type="date" class="input">
-
-                        <label class="label">Text input</label>
-                        <input type="text" class="input">
-
-                        <label class="label">Disabled text input</label>
-                        <input type="text" class="input" disabled>
-
-                        <label class="label">Textarea</label>
-                        <textarea class="textarea">Some text</textarea>
-
-                        <div>
-                            <label class="label label-file-input">File input</label>
-                            <input type="file" class="input">
-                        </div>
-
-                        <button class="btn">Button</button>
-                        <button class="btn" disabled>Button</button>
-                    </form>
-                </div>
-
-            </div>
-
-            <div class="widget-container-clos-3">
-                <div class="widget color_gray_2_bd">
-                    <h2>Heding 2</h2>
-                    <ul class="ul">
-                        <li>list element</li>
-                        <li>list element</li>
-                        <li>list element</li>
-                            <ul>
-                                    <li>list element</li>
-                                    <li>list element</li>
-                                    <li><a>list element with link</a></li>
-                            </ul>
-                    </ul>
-                </div>
-
-                <div class="widget color_gray_2_bd">
-                    <h2>Heding 2</h2>
-                    <ol class="ol">
-                        <li>list element</li>
-                        <li>list element</li>
-                        <li>list element</li>
-                            <ol>
-                                    <li>list element</li>
-                                    <li>list element</li>
-                                    <li><a>list element with link</a></li>
-                            </ol>
-                    </ol>
-                </div>
-
-                <div class="widget color_gray_2_bd">
-                    <h2>Heding 2</h2>
-                </div>
-            </div>
+            {% block content %}{% endblock %}
         </div>
-
-        <!-- end of main content -->
 
     </div>
 </body>
@@ -247,3 +94,5 @@
         ui.navPaneMode()
     })
 </script>
+
+{% block script %}{% endblock %}

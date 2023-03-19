@@ -8,9 +8,15 @@ from django.utils.safestring import mark_safe
 from .forms import EventForm
 from .models import Event
 from .utils import Calendar
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from salon.models import Salon
+from users.models import Employee
+
 
 def index(request):
     return HttpResponse('hello')
+
 
 class CalendarView(ListView):
     model = Event
@@ -27,11 +33,13 @@ class CalendarView(ListView):
         context['next_month'] = next_month(d)
         return context
 
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
@@ -39,6 +47,7 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
+
 
 def get_date(req_day):
     if req_day:
@@ -59,3 +68,11 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
+
+
+def get_employees(request):
+    salon_id = request.GET.get('salon_id')
+    salon = get_object_or_404(Salon, id=salon_id)
+    employees = Employee.objects.filter(salon=salon)
+    data = [{'id': e.id, 'name': e.name} for e in employees]
+    return JsonResponse(data, safe=False)
