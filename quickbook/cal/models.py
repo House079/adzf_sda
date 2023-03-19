@@ -1,8 +1,10 @@
 import datetime
-
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import SET_NULL
 from django.urls import reverse
+from salon.models import Salon
+from users.models import Employee
 
 
 class Event(models.Model):
@@ -11,8 +13,8 @@ class Event(models.Model):
     day = models.DateField('Day of the appointment')
     start_time = models.TimeField('Start time')
     end_time = models.TimeField('End time')
-    # salon =
-    # employee =
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=SET_NULL, null=True)
 
 
     @property
@@ -33,22 +35,14 @@ class Event(models.Model):
 
         return overlap
 
-    def check_employee_availability(self, employee, salon):
-        # TODO: add employee availability verification
-        pass
-
     def clean(self):
         if self.end_time <= self.start_time:
             raise ValidationError('Ending times must after starting times')
 
-        events = Event.objects.filter(day=self.day)
-        if events.exists():
-            for event in events:
-                if self.check_overlap(event.start_time, event.end_time, self.start_time, self.end_time):
-                    raise ValidationError(f'There is an overlap with another event: {event.day}, {event.start_time} - {event.end_time}')
+        events = Event.objects.filter(day=self.day, employee=self.employee)
 
-                # if self.check_employee_availability is False:
-                #     raise ValidationError('This employee is not available at this period of time')
-                # TODO add employee availability check
-
-
+        # Check for any overlapping events
+        for event in events:
+            if self.check_overlap(event.start_time, event.end_time, self.start_time, self.end_time):
+                raise ValidationError(
+                    f'Employee {self.employee} is not available at this time: {event.day}, {event.start_time} - {event.end_time}')

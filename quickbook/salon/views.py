@@ -6,8 +6,6 @@ from .models import Salon
 from .forms import SalonForm
 
 
-# Create your views here.
-
 def send_salon(request):
     form = SalonForm(request.POST or None)
 
@@ -26,7 +24,7 @@ class SalonList(ListView):
 class SalonUpdate(UpdateView):
     model = Salon
     template_name = 'salon/salon_update_form.html'
-    fields = ('name', 'city', 'address', 'opening_hours')
+    fields = ('name', 'city', 'address', 'details')
     success_url = reverse_lazy('salon:send_salon')
 
 

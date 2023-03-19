@@ -1,10 +1,18 @@
-<table class="table>">
-    <tr>
-        <td>Użytkownik</td><td>{{ user.username }}</td>
-    </tr>
-    <tr>
-        <td>email</td><td>{{ user.email }}</td>
-    </tr>
-</table>
+{% extends 'base.html' %}
+{% block title %}{{ user.username }}{% endblock %}
 
-<p><a href="{% url 'password_change' %}">Zmień hasło</a></p>
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <table class="table>">
+            <tr>
+                <td>Użytkownik</td><td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <td>email</td><td>{{ user.email }}</td>
+            </tr>
+        </table>
+        <p><a href="{% url 'password_change' %}">Zmień hasło</a></p>
+    </div>
+</div>
+{%  endblock %}
