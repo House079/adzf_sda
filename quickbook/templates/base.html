@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick CSS | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+</head>
+<body>
+
+    <div id="container" class="container container-shown-nav-pane">
+        <div class="nav-bar">
+
+            <div class="flex flex-nowrap flex-align-center">
+                <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
+                <img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}">
+            </div>
+
+            <div class="flex flex-nowrap flex-align-center">
+                {% if user.is_authenticated %}
+                    <div class="flex flex-nowrap flex-align-center pd-r-m">
+                        <span><strong>{{ user }}</strong></span>
+                    </div>
+                    <div class="flex flex-nowrap flex-align-center">
+                        <span class="more-than-550">Wyloguj</span>
+                        <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="nav-pane" class="nav-pane gradient_bg">
+            <nav class="nav-pane__nav">
+                <a style="color: white" href="{% url 'users:register' %}"><div class="nav-pane__nav__btn">Użytkownicy</div></a>
+                <a style="color: white" href="{% url 'salon:send_salon' %}"><div class="nav-pane__nav__btn">Salony</div></a>
+                <a style="color: white" href="{% url 'cal:calendar' %}"><div class="nav-pane__nav__btn">Kalendarz</div></a>
+            </nav>
+        </div>
+
+        <div class="main">
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+
+    class Interface {
+        constructor(container_id) {
+            this.container = document.getElementById(container_id)
+            this.nav_pane_state = 'unset'
+        }
+
+        is_nav_pan_hidden() {
+            return this.container.classList.contains('container-hidden-nav-pane')
+        }
+
+        navPaneControl(user_decided) {
+            if (this.is_nav_pan_hidden()){
+                 this.container.classList.replace('container-hidden-nav-pane', 'container-shown-nav-pane')
+                if (user_decided) {
+                    this.nav_pane_state ='on'
+                }
+            } else {
+                this.container.classList.replace('container-shown-nav-pane', 'container-hidden-nav-pane')
+                if (user_decided){
+                    this.nav_pane_state = 'off'
+                }
+            }
+        }
+
+        navPaneMode() {
+            if (this.nav_pane_state === 'unset'){
+                if (window.innerWidth > 768) {
+                    this.container.classList.replace('container-hidden-nav-pane', 'container-shown-nav-pane')
+                } else {
+                    this.container.classList.replace('container-shown-nav-pane', 'container-hidden-nav-pane')
+                }
+            }
+        }
+    }
+
+    let ui = new Interface('container')
+
+    document.getElementById('nav-pane-controller').addEventListener('click', function () {
+        ui.navPaneControl(true)
+    })
+
+    ui.navPaneMode()
+    window.addEventListener('resize', function () {
+        ui.navPaneMode()
+    })
+</script>
+
+{% block script %}{% endblock %}

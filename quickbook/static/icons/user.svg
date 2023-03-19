@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-640,-2055)">
+        <g transform="matrix(1,0,0,1,0,1152)">
+            <g id="User-Icon" serif:id="User Icon" transform="matrix(1,0,0,1,457,-2033)">
+                <path d="M203.004,2959.62C201.186,2959.92 199.049,2960 195,2960C190.951,2960 188.814,2959.92 186.996,2959.62C184.451,2959.19 183,2958.28 183,2956.76C183,2954.75 185.592,2951.94 189.196,2950.31C190.652,2952.52 192.709,2954 195,2954C197.291,2954 199.348,2952.52 200.804,2950.31C204.408,2951.94 207,2954.75 207,2956.76C207,2958.28 205.549,2959.19 203.004,2959.62ZM195,2952C191.678,2952 189,2947.59 189,2943.06C189,2938.84 191.505,2936 195,2936C198.495,2936 201,2938.84 201,2943.06C201,2947.59 198.322,2952 195,2952Z" style="fill:rgb(131,147,167);"/>
+            </g>
+        </g>
+    </g>
+</svg>
