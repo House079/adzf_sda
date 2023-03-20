@@ -18,10 +18,11 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    path('', include('cal.urls', namespace='main_cal')),
     path('admin/', admin.site.urls),
     path('salon/', include('salon.urls', namespace='salon')),
     path('cal/', include('cal.urls')),
-    path('', include('cal2.urls')),
+    path('cal2/', include('cal2.urls')),
     path('prices/', include('prices.urls', namespace='prices')),
     path('users/', include('users.urls', namespace='users')),
     path('accounts/', include('django.contrib.auth.urls')),
