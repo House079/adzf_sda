@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quick CSS | {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+{% block css %}{% endblock %}
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 
             <div class="flex flex-nowrap flex-align-center">
                 <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
-                <img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}">
+                <a href="/"><img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}"></a>
             </div>
 
             <div class="flex flex-nowrap flex-align-center">
@@ -23,8 +24,13 @@
                         <span><strong>{{ user }}</strong></span>
                     </div>
                     <div class="flex flex-nowrap flex-align-center">
-                        <span class="more-than-550">Wyloguj</span>
+                        <a href="{% url 'logout' %}"><span class="more-than-550">Wyloguj</span></a>
                         <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
+                    </div>
+                {% else %}
+                    <div class="flex flex-nowrap flex-align-center">
+                        <span class="more-than-550"><a href="{% url 'users:login' %}">Zaloguj się</a></span>
+                        <img class="icon pd-l-m" alt="Zaloguj" src="{% static 'icons/logout.svg' %}">
                     </div>
                 {% endif %}
             </div>

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, date
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView, TemplateView
 from django.utils.safestring import mark_safe
 from .forms import EventForm
 from .models import Event
@@ -14,8 +14,8 @@ from salon.models import Salon
 from users.models import Employee
 
 
-def index(request):
-    return HttpResponse('hello')
+class MainPage(TemplateView):
+    template_name = 'cal/base.html'
 
 
 class CalendarView(ListView):

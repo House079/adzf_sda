@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
     'salon.apps.SalonConfig',
     # 'schedule',
     'cal.apps.CalConfig',
     'cal2.apps.Cal2Config',
     'prices',
-    'users.apps.UsersConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.Employee'
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmployeeBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_REDIRECT_URL = '/'
