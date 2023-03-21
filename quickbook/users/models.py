@@ -2,11 +2,10 @@ from datetime import datetime
 from django.db import models
 from salon.models import Salon
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-
 from users.managers import EmployeeManager
 
 
-class Employee(AbstractBaseUser, PermissionsMixin):
+class Employee(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -22,6 +21,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'name', 'surname']
+
 
     def __str__(self):
         return self.username

@@ -25,10 +25,12 @@
             </tr>
 
         </table>
-                        <div>
+            {% if user.is_superuser %}
+            <div>
                 <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
                 <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
             </div>
+            {% endif %}
         </div>
     </div>
 
