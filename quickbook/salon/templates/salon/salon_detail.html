@@ -8,13 +8,14 @@
 
     <div class="widget white-bg">
         <div class="table-responsive-container">
+        <h2>SALON</h2>
         <table class="table">
             <tr>
                 <th>Nazwa</th>
                 <th>Miasto</th>
                 <th>Adres</th>
                 <th>Info</th>
-                <th>Ilość pracowników</th>
+
             </tr>
 
             <tr>
@@ -22,18 +23,33 @@
                 <td>{{ object.city }}</td>
                 <td>{{ object.address }}</td>
                 <td>{{ object.details }}</td>
-                <td>{{ object.count_employees }}</td>
-
+            </tr>
+        </table>
+            <div>
+                <button class="button"><a href="{% url 'salon:delete' salon.pk %}">Usuń</a></button>
+                <button class="button"><a href="{% url 'salon:update' salon.pk %}">Zmień</a></button>
+            </div>
+        <h3>PRACOWNICY SALONU</h3>
+        <table class="table">
+            <tr>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Data przyjecia</th>
+                <th>Salon</th>
 
             </tr>
-            {% block employees %}
-
-            {% endblock employees %}
-            <div>
-                <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
-                <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
-            </div>
-
+            {% for employee in object.employees.all %}
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.surname }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.date_joined }}</td>
+                <td>{{ employee.salon }}</td>
+                <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
+            {% endfor %}
+            </tr>
+        </table>
         </div>
     </div>
 
