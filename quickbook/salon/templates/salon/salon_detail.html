@@ -14,6 +14,7 @@
                 <th>Miasto</th>
                 <th>Adres</th>
                 <th>Info</th>
+                <th>Ilość pracowników</th>
             </tr>
 
             <tr>
@@ -21,14 +22,18 @@
                 <td>{{ object.city }}</td>
                 <td>{{ object.address }}</td>
                 <td>{{ object.details }}</td>
+                <td>{{ object.count_employees }}</td>
+
 
             </tr>
+            {% block employees %}
 
-        </table>
-                        <div>
+            {% endblock employees %}
+            <div>
                 <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
                 <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
             </div>
+
         </div>
     </div>
 

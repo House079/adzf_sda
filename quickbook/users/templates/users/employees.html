@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+            <tr>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Data przyjecia</th>
+
+            </tr>
+            {% for employee in employee_list %}
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.surname }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.date_joined }}</td>
+                <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
+            {% endfor %}
+            </tr>
+    </table>
+    <button class="btn"><a style="color: white" href="{% url 'users:register' %}">Dodaj użytkownika</a></button>
+
+{% endblock content %}

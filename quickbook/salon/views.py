@@ -20,6 +20,7 @@ class SalonList(ListView):
     model = Salon
     template_name = 'salon/salon.html'
 
+
 class SalonDetail(DetailView):
     model = Salon
 
@@ -33,4 +34,4 @@ class SalonUpdate(UpdateView):
 
 class SalonDelete(DeleteView):
     model = Salon
-    success_url = reverse_lazy('salon:send_salon')
+    success_url = reverse_lazy('users:delete')
