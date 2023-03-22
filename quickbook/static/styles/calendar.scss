@@ -1,0 +1,38 @@
+@import "variables";
+
+.calendar {
+  width: 100%;
+
+  .month {
+    .week {
+      display: grid;
+      grid-template-columns: calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7);
+
+      .day {
+        border: 2px solid #fff;
+        background-color: $gray1;
+        min-height: 200px;
+        padding: 5px;
+        overflow-x: clip;
+
+        .label {
+          font-size: 0.8em;
+        }
+
+        .event {
+          display: block;
+          background-color: #2f76ee;
+          color: #ffffff;
+          padding: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+          text-decoration: none;
+        }
+      }
+
+      .today {
+        background-color: #f8ff9c;
+      }
+    }
+  }
+}

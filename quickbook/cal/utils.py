@@ -1,42 +1,147 @@
-from datetime import datetime, timedelta
-from calendar import HTMLCalendar
+from datetime import datetime
+from calendar import Calendar
 from .models import Event
 
 
-class Calendar(HTMLCalendar):
+class Day:
+    def __init__(self, date: str, weekday: int, events: "Event"):
+        self.date: str = date
+        self.events: "Event" = events
+        self.weekday: int = weekday
+
+    @property
+    def day_name(self):
+        return [
+            "poniedziałek",
+            "wtorek",
+            "środa",
+            "czwartek",
+            "piątek",
+            "sobota",
+            "niedziela",
+        ][self.weekday - 1]
+
+class Month:
+    def __init__(self, month: int, year: int, weeks: list):
+        self.month: int = month
+        self.year: int = year
+        self.today: str = datetime.now().strftime("%Y-%m-%d")
+        self.weeks: list = weeks
+
+    @property
+    def month_name(self):
+        return [
+            'styczeń',
+            'luty',
+            'marzec',
+            'kwiecień',
+            'maj',
+            'czerwiec',
+            'lipiec',
+            'sierpień',
+            'wrzesień',
+            'październik',
+            'listopad',
+            'grudzień',
+        ][self.month - 1]
+
+
+class QuickBookCalendar(Calendar):
     def __init__(self, year=None, month=None):
-        self.year = year
-        self.month = month
-        super(Calendar, self).__init__()
+        super(QuickBookCalendar, self).__init__()
 
-    # formats a day as a td
-    # filter events by day
-    def formatday(self, day, events):
-        events_per_day = events.filter(day__day=day)
-        d = ''
-        for event in events_per_day:
-            d += f'<li> {event.get_html_url} </li>'
+    def prev_month(self, year, month):
+        if month == 1:
+            return year - 1, 12
+        else:
+            return year, month - 1
 
-        if day != 0:
-            return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
-        return '<td></td>'
+    def next_month(self, year, month):
+        if month == 12:
+            return year + 1, 1
+        else:
+            return year, month + 1
 
-    # formats a week as a tr
-    def formatweek(self, theweek, month):
-        week = ''
-        for d, weekday in theweek:
-            week += self.formatday(d, month)
+    def monthdays2calendar(self, year: int, month: int) -> list[list[tuple[int, int, int, int]]]:
+        days: list = list(self.itermonthdays2(year, month))
+        month_weeks: list[list[tuple[int, int, int, int]]] = []
 
-        return f'<tr> {week} </tr>'
+        for i in range(0, len(days), 7):
+            week = []
+            for x in days[i:i + 7]:
+                if x[0] > 0:
+                    week.append((x[0], x[1], year, month))
+                else:
+                    week.append((x[0], x[1], 0, 0))
+            month_weeks.append(week)
 
-    # formats a month as a table
-    # filter events by year and month
-    def formatmonth(self, year, month, withyear=True):
-        events = Event.objects.filter(day__year=year, day__month=month)
+        return month_weeks
 
-        cal = '<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
-        cal += f'{self.formatmonthname(year, month, withyear=withyear)}\n'
-        cal += f'{self.formatweekheader()}\n'
-        for week in self.monthdays2calendar(year, month):
-            cal += f'{self.formatweek(week, events)}\n'
-        return cal
+    def monthdays2calendar_trimmed(self, year, month) -> list[list[tuple[int, int, int, int]]]:
+        days = list(self.itermonthdays2(year, month))
+        month_weeks = []
+
+        for i in range(0, len(days), 7):
+            week = []
+            for x in days[i:i + 7]:
+                if x[0] > 0:
+                    week.append((x[0], x[1], year, month))
+            month_weeks.append(week)
+
+        return month_weeks
+
+    def week_list(self, theweek: list[tuple[int, int, int, int]], events):
+        week = []
+        for day, weekday, year, month in theweek:
+            y = "{:>04d}".format(year)
+            m = "{:>02d}".format(month)
+            d = "{:>02d}".format(day)
+            week.append(Day(
+                date=f"{y}-{m}-{d}",
+                weekday=weekday,
+                events=events.filter(day__day=day, day__year=year, day__month=month).order_by('start_time')
+                )
+            )
+        return week
+
+    def cal_object(self, year, month):
+        prev_month: tuple[int, int] = self.prev_month(year, month)
+        next_month: tuple[int, int] = self.next_month(year, month)
+
+        prev_month_days: list[list[tuple[int, int, int, int]]] = self.monthdays2calendar_trimmed(prev_month[0], prev_month[1])
+        this_month_days: list[list[tuple[int, int, int, int]]] = self.monthdays2calendar(year, month)
+        next_month_days: list[list[tuple[int, int, int, int]]] = self.monthdays2calendar_trimmed(next_month[0], next_month[1])
+
+        events = Event.objects.filter(
+            day__range=[
+                f"{prev_month[0]}-{prev_month[1]}-20",
+                f"{next_month[0]}-{next_month[1]}-10"
+            ]
+        )
+
+        first_week = this_month_days[0]
+        first_week.reverse()
+        pivot = -1
+        for index, day in enumerate(first_week):
+            if day[0] == 0:
+                first_week[index] = prev_month_days[-1][pivot]
+                pivot -= 1
+        first_week.reverse()
+
+        last_week = this_month_days[-1]
+        pivot = 0
+        for index, day in enumerate(last_week):
+            if day[0] == 0:
+                last_week[index] = next_month_days[0][pivot]
+                pivot += 1
+
+        weeks = []
+        for theweek in this_month_days:
+            weeks.append(self.week_list(theweek, events))
+
+        return Month(
+            month=month,
+            year=year,
+            weeks=weeks
+        )
+

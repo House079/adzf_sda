@@ -1,21 +1,39 @@
-{% extends 'cal/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
 Event
 {% endblock %}
 
+{% block head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+{% endblock %}
+
 {% block content %}
-<div class="clearfix">
-  <a class="btn btn-info left" href="{% url 'cal:calendar' %}"> Calendar </a>
+<div class="widget-container">
+    <div class="widget white-bg box-shadow"><h1>Wydarzenie</h1></div>
 </div>
 
-<form method="post">
-  {% csrf_token %}
-  <table class="form form-table">
-    {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
-  </table>
-</form>
+<div class="widget-container">
+    <div class="widget">
+        <a class="btn btn-info left" href="{% url 'cal:calendar' %}"><button class="btn">Powrót</button></a>
+    </div>
+</div>
+
+<div class="widget-container-clos-2">
+    <div class="widget white-bg">
+        <form method="post" class="form">
+          {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn"> Zapisz </button>
+        </form>
+    </div>
+    <div class="widget white-bg">
+
+    </div>
+</div>
 
         <script>
             $(document).ready(function() {
@@ -23,7 +41,7 @@ Event
                 var salonId = $(this).val();
                 if (salonId) {
                   $.ajax({
-                    url: '/cal/get_employees/',
+                    url: '/get_employees/',
                     data: {
                       'salon_id': salonId
                     },
