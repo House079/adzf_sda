@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Czy na pewno chcesz usunąć salon?{% endblock %}
+{% block title %}Edytuj pracownika{% endblock %}
 
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <h3>Czy na pewno chcesz usunąć salon - {{ salon.name }}?</h3>
         <form method="post">
+            <table>{{ form }}</table>
             {% csrf_token %}
-            <input type="submit" value="Tak, na pewno" />
+            <input type="submit" value="Zmień">
         </form>
     </div>
 </div>
