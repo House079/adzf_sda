@@ -6,10 +6,16 @@
     <div class="widget white-bg box-shadow">
         <table class="table>">
             <tr>
-                <td>Użytkownik</td><td>{{ user.username }}</td>
+                <td>Użytkownik: </td><td>{{ user.username }}</td>
             </tr>
             <tr>
-                <td>email</td><td>{{ user.email }}</td>
+                <td>Imię: </td><td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <td>Nazwisko: </td><td>{{ user.surname }}</td>
+            </tr>
+            <tr>
+                <td>Adres email: </td><td>{{ user.email }}</td>
             </tr>
         </table>
         <p><a href="{% url 'password_change' %}">Zmień hasło</a></p>

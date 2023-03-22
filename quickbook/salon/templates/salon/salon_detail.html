@@ -25,6 +25,7 @@
                 <td>{{ object.details }}</td>
             </tr>
         </table>
+
             <div>
                 <button class="button"><a href="{% url 'salon:delete' salon.pk %}">Usuń</a></button>
                 <button class="button"><a href="{% url 'salon:update' salon.pk %}">Zmień</a></button>
@@ -46,8 +47,10 @@
                 <td>{{ employee.email }}</td>
                 <td>{{ employee.date_joined }}</td>
                 <td>{{ employee.salon }}</td>
+                {% if user.is_superuser %}
                 <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
                 <td><button><a href="{% url 'users:update' employee.pk %}">Edytuj</a>|</button></td>
+                {% endif %}
             {% endfor %}
             </tr>
         </table>

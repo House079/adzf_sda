@@ -9,6 +9,7 @@
 </div>
 
 <div class="widget-container-clos-2">
+{%  if user.is_superuser %}
     <div class="widget white-bg">
         <form method="post">
             <table>{{ form }}</table>
@@ -16,6 +17,7 @@
             <input type="submit" value="Dodaj salon">
         </form>
     </div>
+{% endif %}
 
     <div class="widget white-bg">
         <div class="table-responsive-container">
@@ -31,9 +33,11 @@
                 <td>{{ salon.city }}</td>
                 <td>{{ salon.address }}</td>
                 <td>
-                    <a href="{% url 'salon:detail' salon.pk %}">Info</a>|
+                    <a href="{% url 'salon:detail' salon.pk %}">Info</a>
+                    {% if user.is_superuser %}|
                     <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
                     <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}

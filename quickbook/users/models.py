@@ -2,7 +2,6 @@ from datetime import datetime
 from django.db import models
 from salon.models import Salon
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-
 from users.managers import EmployeeManager
 
 
@@ -22,6 +21,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'name', 'surname']
+
 
     def __str__(self):
         return self.username
