@@ -47,6 +47,7 @@
                 <td>{{ employee.date_joined }}</td>
                 <td>{{ employee.salon }}</td>
                 <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
+                <td><button><a href="{% url 'users:update' employee.pk %}">Edytuj</a>|</button></td>
             {% endfor %}
             </tr>
         </table>

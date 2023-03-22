@@ -11,4 +11,5 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('employees', views.EmployeesList.as_view(), name='employees_list'),
     path('delete/<int:pk>', views.EmployeeDelete.as_view(), name='delete'),
+    path('update/<int:pk>', views.EmployeeUpdate.as_view(), name='update'),
 ]
