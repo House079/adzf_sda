@@ -1,0 +1,34 @@
+.calendar {
+  width: 100%;
+}
+.calendar .btn-week {
+  background-color: rgb(48, 123, 243);
+}
+.calendar .month .week {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857%;
+}
+.calendar .month .week .day {
+  border: 1px solid #8292a6;
+  min-height: 100%;
+  padding: 5px;
+  overflow-x: clip;
+}
+.calendar .month .week .day .label {
+  font-size: 0.8em;
+}
+.calendar .month .week .day .event {
+  display: block;
+  background-color: #2f76ee;
+  color: #ffffff;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.calendar .month .week .today {
+  background-color: #f8ff9c;
+}
+
+/*# sourceMappingURL=calendar.css.map */

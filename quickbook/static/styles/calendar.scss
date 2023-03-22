@@ -1,0 +1,41 @@
+.calendar {
+  width: 100%;
+
+  .btn-week {
+    background-color:  rgb(48, 123, 243);
+  }
+  
+
+  .month {
+    .week {
+      display: grid;
+      gap: 1px;
+      grid-template-columns: calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7);
+
+      .day {
+        border: 1px solid #8292a6;
+        min-height: 100%;
+        padding: 5px;
+        overflow-x: clip;
+
+        .label {
+          font-size: 0.8em;
+        }
+
+        .event {
+          display: block;
+          background-color: #2f76ee;
+          color: #ffffff;
+          padding: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+          text-decoration: none;
+        }
+      }
+
+      .today {
+        background-color: #f8ff9c;
+      }
+    }
+  }
+}
