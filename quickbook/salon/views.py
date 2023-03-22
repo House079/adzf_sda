@@ -34,11 +34,13 @@ def send_salon(request):
     salons = Salon.objects.all()
     return render(request, 'salon/salon.html', {'form': form, 'salons': salons})
 
+
 @staff_user_required()
 class SalonList(ListView, PermissionRequiredMixin):
     model = Salon
     template_name = 'salon/salon.html'
     permission_required = 'salon.view_salon'
+
 
 @staff_user_required()
 class SalonDetail(DetailView, PermissionRequiredMixin):
@@ -55,4 +57,4 @@ class SalonUpdate(UpdateView):
 @superuser_required()
 class SalonDelete(DeleteView):
     model = Salon
-    success_url = reverse_lazy('salon:send_salon')
+    success_url = reverse_lazy('users:delete')

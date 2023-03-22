@@ -38,9 +38,7 @@
 
         <div id="nav-pane" class="nav-pane gradient_bg">
             <nav class="nav-pane__nav">
-                {% if user.is_superuser %}
-                <a style="color: white" href="{% url 'users:register' %}"><div class="nav-pane__nav__btn">Użytkownicy</div></a>
-                {% endif %}
+                <a style="color: white" href="{% url 'users:employees_list' %}"><div class="nav-pane__nav__btn">Użytkownicy</div></a>
                 <a style="color: white" href="{% url 'salon:send_salon' %}"><div class="nav-pane__nav__btn">Salony</div></a>
                 <a style="color: white" href="{% url 'cal:calendar' %}"><div class="nav-pane__nav__btn">Kalendarz</div></a>
             </nav>

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Czy na pewno chcesz usunąć salon?{% endblock %}
+{% block title %}Czy na pewno chcesz usunąć pracownika{% endblock %}
 
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <h3>Czy na pewno chcesz usunąć salon - {{ salon.name }}?</h3>
+        <h3>Czy na pewno chcesz usunąć ten pracownika {{ employee.name }} {{ employee.surname }}?</h3>
         <form method="post">
             {% csrf_token %}
             <input type="submit" value="Tak, na pewno" />
@@ -12,3 +12,4 @@
     </div>
 </div>
 {% endblock %}
+
