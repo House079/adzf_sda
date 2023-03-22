@@ -3,6 +3,12 @@
 .calendar {
   width: 100%;
 
+  .calendar-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
   .month {
     .week {
       display: grid;

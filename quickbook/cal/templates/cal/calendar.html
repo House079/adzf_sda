@@ -30,11 +30,14 @@
     <div class="widget white-bg box-shadow">
         <div class="calendar" id="calendar" today="{{ calendar.today }}">
             <h2>{{ calendar.month_name }} {{ calendar.year }}</h2>
-            <div>
-                Miesiąc:
-                <a href="{% url 'cal:calendar' %}?{{ prev_month }}"><button class="btn btn-calendar-week">&lsaquo;</button></a>
-                <a href="{% url 'cal:calendar' %}?{{ next_month }}"><button class="btn btn-calendar-week">&rsaquo;</button></a>
-                Tydzień: <span id="calendar-buttons"></span>
+            <div class="calendar-menu">
+                <div class="calendar-menu__widget">
+                    Miesiąc: <a href="{% url 'cal:calendar' %}?{{ prev_month }}"><button class="btn btn-calendar-week">&lsaquo;</button></a>
+                    <a href="{% url 'cal:calendar' %}?{{ next_month }}"><button class="btn btn-calendar-week">&rsaquo;</button></a>
+                </div>
+                <div class="calendar-menu__widget">
+                    Tydzień: <span id="calendar-buttons"></span>
+                </div>
             </div>
             <div class="month">
                 {% for week in calendar.weeks %}
