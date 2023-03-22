@@ -6,9 +6,28 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.calendar .calendar-menu .calendar-menu__widget {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+@media only screen and (max-width: 1024px) {
+  .calendar .calendar-menu .calendar-menu__widget {
+    width: 100%;
+  }
+}
+.calendar .calendar-menu .calendar-menu__widget .calendar-menu__widget_element select {
+  width: 200px;
+}
 .calendar .month .week {
   display: grid;
   grid-template-columns: 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857% 14.2857142857%;
+}
+@media only screen and (max-width: 1024px) {
+  .calendar .month .week {
+    grid-template-columns: auto;
+  }
 }
 .calendar .month .week .day {
   border: 2px solid #fff;
@@ -16,6 +35,11 @@
   min-height: 200px;
   padding: 5px;
   overflow-x: clip;
+}
+@media only screen and (max-width: 1024px) {
+  .calendar .month .week .day {
+    min-height: unset;
+  }
 }
 .calendar .month .week .day .label {
   font-size: 0.8em;

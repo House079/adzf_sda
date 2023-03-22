@@ -90,5 +90,11 @@ def get_employees(request):
     salon_id = request.GET.get('salon_id')
     salon = get_object_or_404(Salon, id=salon_id)
     employees = Employee.objects.filter(salon=salon)
-    data = [{'id': e.id, 'name': e.name} for e in employees]
+    data = [{'id': e.id, 'name': e.username} for e in employees]
+    return JsonResponse(data, safe=False)
+
+
+def get_salons(request):
+    salons = Salon.objects.all()
+    data = [{'id': s.id, 'name': s.name} for s in salons]
     return JsonResponse(data, safe=False)

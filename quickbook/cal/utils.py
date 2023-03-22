@@ -12,13 +12,13 @@ class Day:
     @property
     def day_name(self):
         return [
-            "poniedziałek",
             "wtorek",
             "środa",
             "czwartek",
             "piątek",
             "sobota",
             "niedziela",
+            "poniedziałek",
         ][self.weekday - 1]
 
 class Month:
