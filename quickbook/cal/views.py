@@ -1,5 +1,5 @@
+from datetime import datetime, timedelta
 import calendar
-from datetime import datetime, timedelta, date
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, DeleteView, CreateView, U
 from django.utils.safestring import mark_safe
 from .forms import EventForm
 from .models import Event
-from .utils import Calendar
+from .utils import QuickBookCalendar
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from salon.models import Salon
@@ -25,10 +25,10 @@ class CalendarView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
-        cal = Calendar(d.year, d.month)
+        cal = QuickBookCalendar(d.year, d.month)
 
-        html_cal = cal.formatmonth(d.year, d.month, withyear=True)
-        context['calendar'] = mark_safe(html_cal)
+        cal_object = cal.cal_object(d.year, d.month)
+        context['calendar'] = cal_object
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context

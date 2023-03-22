@@ -79,7 +79,7 @@
   display: block;
 }
 
-.label {
+.form label {
   position: relative;
   white-space: nowrap;
   box-sizing: border-box;
@@ -89,12 +89,10 @@
   text-overflow: ellipsis;
   color: #8292a6;
 }
-
-.label-file-input {
+.form .label-file-input {
   top: 0;
 }
-
-.input, .textarea, .select {
+.form input, .form textarea, .form select {
   display: block;
   width: 100%;
   min-height: 40px;
@@ -105,25 +103,21 @@
   border: 1px solid #8292a6;
   outline: none;
 }
-
-.textarea {
+.form textarea {
   resize: vertical;
   min-height: 200px;
 }
-
-.input:disabled,
-.textarea:disabled,
-.select:disabled {
+.form input:disabled,
+.form textarea:disabled,
+.form select:disabled {
   background-color: #eceff3;
 }
-
-input:focus.input,
-textarea:focus.textarea,
-select:focus.select {
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
   box-shadow: 0 0 3px rgb(48, 123, 243);
 }
-
-input[type=file].input {
+.form input[type=file] {
   padding: 0;
   border: none;
   min-height: unset;
@@ -132,8 +126,7 @@ input[type=file].input {
   display: inline-block;
   width: auto;
 }
-
-input[type=file].input:focus {
+.form input[type=file]:focus {
   box-shadow: none;
 }
 
@@ -155,6 +148,12 @@ input[type=file].input:focus {
 
 .btn:disabled {
   background-color: #8292a6;
+}
+
+.btn-calendar-week {
+  min-width: 28px;
+  padding: 5px;
+  margin: 0px 2px 5px 2px;
 }
 
 /*# sourceMappingURL=forms.css.map */

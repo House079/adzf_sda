@@ -95,62 +95,64 @@
 
 // Inputs
 
-.label {
-  position: relative;
-  white-space: nowrap;
-  box-sizing: border-box;
-  padding: 5px;
-  top: 0;
-  left: 2px;
-  text-overflow: ellipsis;
-  color: $gray2;
-}
+.form {
+  label {
+    position: relative;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 5px;
+    top: 0;
+    left: 2px;
+    text-overflow: ellipsis;
+    color: $gray2;
+  }
 
-.label-file-input {
-  top: 0;
-}
+  .label-file-input {
+    top: 0;
+  }
 
-.input, .textarea, .select {
-  display: block;
-  width: 100%;
-  min-height: 40px;
-  border-radius: 5px;
-  background-color: #fff;
-  margin-bottom: 12px;
-  padding: 7px;
-  border: 1px solid $gray2;
-  outline: none;
-}
+  input, textarea, select {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 12px;
+    padding: 7px;
+    border: 1px solid $gray2;
+    outline: none;
+  }
 
-.textarea {
-  resize: vertical;
-  min-height: 200px;
-}
+  textarea {
+    resize: vertical;
+    min-height: 200px;
+  }
 
-.input:disabled,
-.textarea:disabled,
-.select:disabled {
-  background-color: $gray1;
-}
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    background-color: $gray1;
+  }
 
-input:focus.input,
-textarea:focus.textarea,
-select:focus.select {
-  box-shadow: 0 0 3px $colorA;
-}
+  input:focus,
+  textarea:focus,
+  select:focus {
+    box-shadow: 0 0 3px $colorA;
+  }
 
-input[type=file].input {
-  padding: 0;
-  border: none;
-  min-height: unset;
-  min-width: unset;
-  background-color: unset;
-  display: inline-block;
-  width: auto;
-}
+  input[type=file] {
+    padding: 0;
+    border: none;
+    min-height: unset;
+    min-width: unset;
+    background-color: unset;
+    display: inline-block;
+    width: auto;
+  }
 
-input[type=file].input:focus {
-  box-shadow: none;
+  input[type=file]:focus {
+    box-shadow: none;
+  }
 }
 
 .btn {
@@ -171,4 +173,10 @@ input[type=file].input:focus {
 
 .btn:disabled {
   background-color: $gray2;
+}
+
+.btn-calendar-week {
+  min-width: 28px;
+  padding: 5px;
+  margin: 0px 2px 5px 2px;
 }

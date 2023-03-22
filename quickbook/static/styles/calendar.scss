@@ -1,20 +1,17 @@
+@import "variables";
+
 .calendar {
   width: 100%;
-
-  .btn-week {
-    background-color:  rgb(48, 123, 243);
-  }
-  
 
   .month {
     .week {
       display: grid;
-      gap: 1px;
       grid-template-columns: calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7);
 
       .day {
-        border: 1px solid #8292a6;
-        min-height: 100%;
+        border: 2px solid #fff;
+        background-color: $gray1;
+        min-height: 200px;
         padding: 5px;
         overflow-x: clip;
 
