@@ -8,7 +8,7 @@ class UpgradedUserCreationForm(UserCreationForm):
 
     class Meta:
         model = Employee
-        fields = ('username', 'name', 'surname', 'email', 'password1', 'password2', 'salon')
+        fields = ('username', 'name', 'surname', 'email', 'password1', 'password2', 'salon', 'is_superuser')
     # OPTIONS = [
     #     ('option1', 'Option 1'),
     #     ('option2', 'Option 2'),
