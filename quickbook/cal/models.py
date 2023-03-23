@@ -16,11 +16,9 @@ class Event(models.Model):
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=SET_NULL, null=True)
 
-
     @property
     def get_url(self):
         return reverse('cal:event_edit', args=(self.id,))
-
 
     def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
         overlap = False
