@@ -28,16 +28,24 @@
 
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <div class="calendar" id="calendar" today="{{ calendar.today }}">
+        <div class="calendar"
+            id="calendar"
+            today="{{ calendar.today }}"
+            prev_month="{{ prev_month }}"
+            next_month="{{ next_month }}"
+        >
             <h2>{{ calendar.month_name }} {{ calendar.year }}</h2>
             <div class="calendar-menu">
                 <div class="calendar-menu__widget">
                     <div class="calendar-menu__widget__element">
-                        Miesiąc: <a href="{% url 'cal:calendar' %}?{{ prev_month }}"><button class="btn btn-calendar-week">&lsaquo;</button></a>
-                        <a href="{% url 'cal:calendar' %}?{{ next_month }}"><button class="btn btn-calendar-week">&rsaquo;</button></a>
+                        Miesiąc:
+                        <button onclick="cal.prevMonth()" class="btn btn-calendar-week">&lsaquo;</button></a>
+                        <a style="color: white" href="{% url 'cal:calendar' %}"><button class="btn btn-calendar-week">Teraz</button></a>
+                        <button onclick="cal.nextMonth()" class="btn btn-calendar-week">&rsaquo;</button>
                     </div>
                     <div class="calendar-menu__widget_element">
                         Tydzień: <span id="calendar-buttons"></span>
+                        <button onclick="cal.showWeek('all')" class="btn btn-calendar-week">Wszytkie</button>
                     </div>
                 </div>
 
@@ -95,10 +103,35 @@ class Calendar{
         this.weeks = this.weeksList()
         this.events = this.eventsList()
         this.week_intervals = this.weekIntervals()
-        this.is_today_in_month = false
         this.buttons = []
         this.setupView()
+    }
+    setURIParam(key, value){
+        const urlParams = new URLSearchParams(window.location.search)
+        urlParams.set('main_position', document.getElementById('main').scrollTop)
+        urlParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
 
+        const employee_id = this.calendar.querySelector('[id="id_employee"]').value
+        console.log(employee_id)
+        if (employee_id === ''){
+            urlParams.set('employee_id', 'none')
+        } else {
+            urlParams.set('employee_id', employee_id)
+        }
+        urlParams.set(key, value);
+        window.location.search = urlParams;
+    }
+    getURIParam(key){
+        const urlParams = new URLSearchParams(window.location.search)
+        return urlParams.get(key);
+    }
+    prevMonth(){
+        const prev_month = this.calendar.getAttribute('prev_month')
+        this.setURIParam('month', prev_month)
+    }
+    nextMonth(){
+        const next_month = this.calendar.getAttribute('next_month')
+        this.setURIParam('month', next_month)
     }
     weeksList(){
         return this.calendar.querySelectorAll("[week_num]")
@@ -107,26 +140,6 @@ class Calendar{
         this.weeks.forEach(week => {
             week.style.display = 'none'
         })
-    }
-    eventsList(){
-        return this.calendar.querySelectorAll('[class="event"]')
-    }
-    hideEvents(){
-        this.events.forEach(event => {
-            event.style.display = 'none'
-        })
-    }
-    resetButtons(){
-        this.buttons.forEach(button => {
-            button.disabled = false
-        })
-    }
-    toDate(date_string){
-        const dateString = date_string;
-        const dateParts = dateString.split('-');
-        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-
-        return dateObject
     }
     weekIntervals(){
         let intervals = []
@@ -140,19 +153,58 @@ class Calendar{
         })
         return intervals
     }
-    makeButtons(){
-        let buttons = ''
-        this.weeks.forEach((week, index) => {
-            buttons += '<button class="btn btn-calendar-week week-counter" onclick="cal.showWeek(' + index + ')">' + (index + 1) + '</button>'
-        })
-        this.calendar.querySelector('[id="calendar-buttons"]').innerHTML = buttons
-        this.buttons = [...this.calendar.getElementsByClassName('week-counter')]
-    }
     showWeek(index){
+        this.setURIParam('week', index)
+    }
+    activateWeek(index){
+        if (index === 'all'){
+            this.weeks.forEach(week => {
+                week.style.display = 'grid'
+            })
+        } else if (index === 'last'){
+            this.weeks[this.weeks.length -1].style.display = 'grid'
+            this.deactivateButton('last')
+        } else {
+            this.weeks[index].style.display = 'grid'
+            this.deactivateButton(index)
+        }
+    }
+    setupActiveWeek(){
         this.hideWeeks()
         this.resetButtons()
-        this.activateWeek(index)
-        this.deactivateButton(index)
+        const week_index = this.getURIParam('week')
+
+        if (week_index === null){
+            const today = this.toDate(this.calendar.getAttribute('today'))
+            let is_today_in_month = false
+            this.week_intervals.forEach((week, index) => {
+                if (today >= week.start && today <= week.stop) {
+                    is_today_in_month = true
+                    this.setURIParam('week', index)
+                }
+            })
+            if (is_today_in_month === false){
+                this.setURIParam('week', 0)
+            } else {
+                this.setURIParam('week', index)
+            }
+        } else {
+            this.activateWeek(week_index)
+        }
+
+        const main_position = parseInt(this.getURIParam('main_position'))
+        if (main_position > 0){
+            document.getElementById('main').scrollTop = main_position
+        }
+
+    }
+    eventsList(){
+        return this.calendar.querySelectorAll('[class="event"]')
+    }
+    hideEvents(){
+        this.events.forEach(event => {
+            event.style.display = 'none'
+        })
     }
     showEvents(){
         this.hideEvents()
@@ -162,8 +214,6 @@ class Calendar{
         this.events.forEach(event => {
             const event_salon_id = event.getAttribute('salon_id')
             const event_employee_id = event.getAttribute('employee_id')
-
-            console.log(event_employee_id + event.innerHTML)
 
             if (event_salon_id === salon_id){
                 if (salon_id === ''){
@@ -176,26 +226,39 @@ class Calendar{
             }
         })
     }
-    activateWeek(index){
-        const active_week = this.weeks[index]
-        active_week.style.display = 'grid'
+    makeButtons(){
+        let buttons = ''
+        this.weeks.forEach((week, index) => {
+            buttons += '<button class="btn btn-calendar-week week-counter" onclick="cal.showWeek(' + index + ')">' + (index + 1) + '</button>'
+        })
+        this.calendar.querySelector('[id="calendar-buttons"]').innerHTML = buttons
+        this.buttons = [...this.calendar.getElementsByClassName('week-counter')]
+    }
+    resetButtons(){
+        this.buttons.forEach(button => {
+            button.disabled = false
+        })
     }
     deactivateButton(index){
-        const disabled_button = this.buttons[index]
-        disabled_button.disabled = true
+        if (index === 'last') {
+            const disabled_button = this.buttons[this.buttons.length - 1]
+            disabled_button.disabled = true
+        } else {
+            const disabled_button = this.buttons[index]
+            disabled_button.disabled = true
+        }
+    }
+    toDate(date_string){
+        const dateString = date_string;
+        const dateParts = dateString.split('-');
+        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        return dateObject
     }
     setupView(){
         this.hideWeeks()
         this.hideEvents()
-        const today = this.toDate(this.calendar.getAttribute('today'))
         this.makeButtons()
-        this.week_intervals.forEach((week, index) => {
-            if (today >= week.start && today <= week.stop) {
-                week.element.style.display = 'grid'
-                this.deactivateButton(index)
-                this.is_today_in_month = true
-            }
-        })
+        this.setupActiveWeek()
     }
 }
 cal = new Calendar('calendar')
