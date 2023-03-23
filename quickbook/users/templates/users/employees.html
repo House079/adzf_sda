@@ -18,11 +18,14 @@
                 <td>{{ employee.email }}</td>
                 <td>{{ employee.date_joined }}</td>
                 <td>{{ employee.salon }}</td>
+                {% if user.is_superuser %}
                 <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
                 <td><button><a href="{% url 'users:update' employee.pk %}">Edytuj</a>|</button></td>
+                {% endif %}
             {% endfor %}
             </tr>
     </table>
+    {% if user.is_superuser %}
     <button class="btn"><a style="color: white" href="{% url 'users:register' %}">Dodaj użytkownika</a></button>
-
+    {% endif %}
 {% endblock content %}
