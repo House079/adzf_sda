@@ -33,9 +33,9 @@ Event
     <div class="widget white-bg">
         <div class="widget white-bg box-shadow">
             <div class="table-responsive-container">
-            <table class="table" id="event-list">
-            </table>
-                </div>
+                <table class="table" id="event-list" style="min-width: 100%">
+                </table>
+            </div>
         </div>
 
     </div>
@@ -60,7 +60,7 @@ Event
                                 event_list.empty();
                             }
                             $.each(data, function(index, event) {
-                                var event_html = '<tr>' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
+                                var event_html = '<tr style="text-align: center">' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
                                 event_list.append(event_html);
                             });
                         }
