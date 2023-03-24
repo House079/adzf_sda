@@ -29,23 +29,22 @@
                 <th>Opcje</th>
             </tr>
             {% for salon in salons %}
-            <tr>
-                <td>{{ salon.name }}</td>
-                <td>{{ salon.city }}</td>
-                <td>{{ salon.address }}</td>
-                <td>
-                    <a href="{% url 'salon:detail' salon.pk %}"><button class="btn">Info</button></a>
-                    {% if user.is_superuser %}
-                        <a href="{% url 'salon:update' salon.pk %}"><button class="btn">Zmień</button></a>
-                        <a href="{% url 'salon:delete' salon.pk %}"><button class="btn">Usuń</button></a>
-
-                    {% endif %}
-
-            </tr>
+                <tr>
+                    <td>{{ salon.name }}</td>
+                    <td>{{ salon.city }}</td>
+                    <td>{{ salon.address }}</td>
+                    <td>
+                        <a href="{% url 'salon:detail' salon.pk %}"><button class="btn">Info</button></a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'salon:update' salon.pk %}"><button class="btn">Zmień</button></a>
+                            <a href="{% url 'salon:delete' salon.pk %}"><button class="btn">Usuń</button></a>
+                        {% endif %}
+                    </td>    
+                </tr>
             {% empty %}
-            <tr>
-                <td colspan="3">Obecnie nie ma żadnych salonów...</td>
-            </tr>
+                <tr>
+                    <td colspan="3">Obecnie nie ma żadnych salonów...</td>
+                </tr>
             {% endfor %}
         </table>
     </div>
