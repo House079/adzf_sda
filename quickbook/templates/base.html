@@ -11,7 +11,9 @@
 </head>
 <body>
 
+
     <div id="container" class="container container-shown-nav-pane">
+    {% if user.is_authenticated %}
         <div class="nav-bar">
 
             <div class="flex flex-nowrap flex-align-center">
@@ -48,10 +50,27 @@
         </div>
 
         <div class="main">
+
             {% block content %}{% endblock %}
         </div>
+    {% else %}
+        <div class="more-than-768 admin_panel">
+            <div class="widget-container">
+                <div class="widget white-bg box-shadow">
 
-    </div>
+                    {% block login %}{% endblock %}
+
+                        {% block loggedout %}{% endblock %}
+
+                </div>
+            </div>
+        </div>
+
+
+{% endif %}
+</div>
+
+
 </body>
 </html>
 

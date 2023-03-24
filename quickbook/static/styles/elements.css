@@ -40,5 +40,7 @@
     grid-template-columns: 100%;
   }
 }
-
+.admin_panel{
+  background-color: #f8ff9c;
+}
 /*# sourceMappingURL=elements.css.map */

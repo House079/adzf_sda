@@ -26,6 +26,7 @@
                 <th>Nazwa</th>
                 <th>Miasto</th>
                 <th>Adres</th>
+                <th>Opcje</th>
             </tr>
             {% for salon in salons %}
             <tr>
@@ -33,12 +34,13 @@
                 <td>{{ salon.city }}</td>
                 <td>{{ salon.address }}</td>
                 <td>
-                    <a href="{% url 'salon:detail' salon.pk %}">Info</a>
-                    {% if user.is_superuser %}|
-                    <a href="{% url 'salon:delete' salon.pk %}">Usuń</a>|
-                    <a href="{% url 'salon:update' salon.pk %}">Zmień</a>|
+                    <a href="{% url 'salon:detail' salon.pk %}"><button class="btn">Info</button></a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'salon:update' salon.pk %}"><button class="btn">Zmień</button></a>
+                        <a href="{% url 'salon:delete' salon.pk %}"><button class="btn">Usuń</button></a>
+
                     {% endif %}
-                </td>
+
             </tr>
             {% empty %}
             <tr>
