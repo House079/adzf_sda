@@ -24,11 +24,9 @@
             <div class="flex flex-nowrap flex-align-center">
                 {% if user.is_authenticated %}
                     <div class="flex flex-nowrap flex-align-center pd-r-m">
-                        <span><strong>{{ user }}</strong></span>
+                        <a href="{% url 'users:user_panel' %}"><span><strong>{{ user }}</strong></span></a>
                     </div>
                     <div class="flex flex-nowrap flex-align-center">
-                        <a href="{% url 'password_change' %}"><span class="more-than-550">Zmień hasło</span></a>
-
                         <a href="{% url 'logout' %}"><span class="more-than-550">Wyloguj</span></a>
                         <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
                     </div>
@@ -57,17 +55,15 @@
         <div class="more-than-768 admin_panel">
             <div class="widget-container">
                 <div class="widget white-bg box-shadow">
-
+                
                     {% block login %}{% endblock %}
 
-                        {% block loggedout %}{% endblock %}
-
+                    {% block loggedout %}{% endblock %}
+                    
                 </div>
             </div>
         </div>
-
-
-{% endif %}
+    {% endif %}
 </div>
 
 
