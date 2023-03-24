@@ -10,11 +10,11 @@
 
 <div class="widget-container-clos-2">
 {%  if user.is_superuser %}
-    <div class="widget white-bg">
+    <div class="widget color_gray_2_bd">
         <form method="post">
             <table>{{ form }}</table>
             {% csrf_token %}
-            <input type="submit" value="Dodaj salon">
+            <input type="submit" class="btn" value="Dodaj salon">
         </form>
     </div>
 {% endif %}
@@ -34,10 +34,10 @@
                     <td>{{ salon.city }}</td>
                     <td>{{ salon.address }}</td>
                     <td>
-                        <a href="{% url 'salon:detail' salon.pk %}"><button class="btn">Info</button></a>
+                        <a href="{% url 'salon:detail' salon.pk %}"><button class="btn" style="min-width: 60px">Info</button></a>
                         {% if user.is_superuser %}
-                            <a href="{% url 'salon:update' salon.pk %}"><button class="btn">Zmień</button></a>
-                            <a href="{% url 'salon:delete' salon.pk %}"><button class="btn">Usuń</button></a>
+                            <a href="{% url 'salon:update' salon.pk %}"><button class="btn" style="min-width: 60px">Zmień</button></a>
+                            <a href="{% url 'salon:delete' salon.pk %}"><button class="btn" style="min-width: 60px">Usuń</button></a>
                         {% endif %}
                     </td>    
                 </tr>

@@ -2,23 +2,26 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<div class="widget-container">
+<div class="widget-container-clos-2">
     <div class="widget white-bg box-shadow">
-        <table class="table>">
-            <tr>
-                <td>Użytkownik: </td><td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <td>Imię: </td><td>{{ user.name }}</td>
-            </tr>
-            <tr>
-                <td>Nazwisko: </td><td>{{ user.surname }}</td>
-            </tr>
-            <tr>
-                <td>Adres email: </td><td>{{ user.email }}</td>
-            </tr>
-        </table>
-        <p><a href="{% url 'password_change' %}">Zmień hasło</a></p>
+        <div class="table-responsive-container">
+            <table class="table>">
+                <tbody>
+                <tr>
+                    <th>Użytkownik: </th>
+                    <th>Imię: </th>
+                    <th>Nazwisko: </th>
+                    <th>Adres email: </th>
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a style="display: inline-block; text-decoration: none; color: inherit;" href="{% url 'password_change' %}">Zmień hasło</a></p>
     </div>
 </div>
 {%  endblock %}

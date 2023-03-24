@@ -13,7 +13,7 @@ from salon.views import superuser_required, staff_user_required
 
 class SignUp(PermissionRequiredMixin, CreateView):
     form_class = UpgradedUserCreationForm
-    success_url = reverse_lazy('users:register')
+    success_url = reverse_lazy('users:employees_list')
     template_name = 'users/signup.html'
     permission_required = 'users.view_user'
 
