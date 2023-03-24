@@ -11,7 +11,9 @@
 </head>
 <body>
 
+
     <div id="container" class="container container-shown-nav-pane">
+    {% if user.is_authenticated %}
         <div class="nav-bar">
 
             <div class="flex flex-nowrap flex-align-center">
@@ -22,7 +24,7 @@
             <div class="flex flex-nowrap flex-align-center">
                 {% if user.is_authenticated %}
                     <div class="flex flex-nowrap flex-align-center pd-r-m">
-                        <span><strong>{{ user }}</strong></span>
+                        <a href="{% url 'users:user_panel' %}"><span><strong>{{ user }}</strong></span></a>
                     </div>
                     <div class="flex flex-nowrap flex-align-center">
                         <a href="{% url 'logout' %}"><span class="more-than-550">Wyloguj</span></a>
@@ -46,10 +48,25 @@
         </div>
 
         <div class="main">
+
             {% block content %}{% endblock %}
         </div>
+    {% else %}
+        <div class="more-than-768 admin_panel">
+            <div class="widget-container">
+                <div class="widget white-bg box-shadow">
+                
+                    {% block login %}{% endblock %}
 
-    </div>
+                    {% block loggedout %}{% endblock %}
+                    
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+
 </body>
 </html>
 

@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Pracwonicy</h1>
+    </div>
+</div>
+
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+
     <table class="table">
             <tr>
                 <th>Login</th>
@@ -19,12 +28,14 @@
                 <td>{{ employee.date_joined }}</td>
                 <td>{{ employee.salon }}</td>
                 {% if user.is_superuser %}
-                <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
-                <td><button><a href="{% url 'users:update' employee.pk %}">Edytuj</a>|</button></td>
+                <td><a href="{% url 'users:delete' employee.pk %}"><button class="btn">Usuń</button></a></td>
+                <td><a href="{% url 'users:update' employee.pk %}"><button class="btn">Edytuj</button></a></td>
                 {% endif %}
             {% endfor %}
             </tr>
     </table>
+    </div>
+</div>
     {% if user.is_superuser %}
     <button class="btn"><a style="color: white" href="{% url 'users:register' %}">Dodaj użytkownika</a></button>
     {% endif %}
