@@ -8,6 +8,7 @@ from .forms import UpgradedUserCreationForm, CustomAuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Employee
+from salon.views import superuser_required, staff_user_required
 
 
 class SignUp(PermissionRequiredMixin, CreateView):
@@ -33,11 +34,13 @@ class EmployeesList(ListView):
     fields = ('name', 'surname', 'email', 'date_joined')
 
 
+@superuser_required()
 class EmployeeDelete(DeleteView):
     model = Employee
     success_url = reverse_lazy('users:employees_list')
 
 
+@superuser_required()
 class EmployeeUpdate(UpdateView):
     model = Employee
     template_name = 'users/employee_update_form.html'
