@@ -7,6 +7,21 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    .calendar-menu__widget {
+      width: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      @media only screen and (max-width: 1024px){
+        width: 100%;
+      }
+      .calendar-menu__widget_element{
+          select {
+            width: 200px;
+          }
+      }
+    }
   }
 
   .month {
@@ -14,12 +29,20 @@
       display: grid;
       grid-template-columns: calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7) calc(100%/7);
 
+      @media only screen and (max-width: 1024px) {
+        grid-template-columns: auto;
+      }
+
       .day {
         border: 2px solid #fff;
         background-color: $gray1;
         min-height: 200px;
         padding: 5px;
         overflow-x: clip;
+        
+        @media only screen and (max-width: 1024px) {
+          min-height: unset;
+        }
 
         .label {
           font-size: 0.8em;

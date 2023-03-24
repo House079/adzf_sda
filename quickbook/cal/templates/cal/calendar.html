@@ -22,21 +22,42 @@
 
 <div class="widget-container">
     <div class="widget">
-        <a href="{% url 'cal:event_new' %}"><button class="btn">Nowe wydażenie</button></a>
+        <a href="{% url 'cal:event_new' %}"><button class="btn">Nowe wydarzenie</button></a>
     </div>
 </div>
 
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <div class="calendar" id="calendar" today="{{ calendar.today }}">
+        <div class="calendar"
+            id="calendar"
+            today="{{ calendar.today }}"
+            prev_month="{{ prev_month }}"
+            next_month="{{ next_month }}"
+        >
             <h2>{{ calendar.month_name }} {{ calendar.year }}</h2>
             <div class="calendar-menu">
                 <div class="calendar-menu__widget">
-                    Miesiąc: <a href="{% url 'cal:calendar' %}?{{ prev_month }}"><button class="btn btn-calendar-week">&lsaquo;</button></a>
-                    <a href="{% url 'cal:calendar' %}?{{ next_month }}"><button class="btn btn-calendar-week">&rsaquo;</button></a>
+                    <div class="calendar-menu__widget__element">
+                        Miesiąc:
+                        <button onclick="cal.prevMonth()" class="btn btn-calendar-week">&lsaquo;</button></a>
+                        <a style="color: white" href="{% url 'cal:calendar' %}"><button class="btn btn-calendar-week">Teraz</button></a>
+                        <button onclick="cal.nextMonth()" class="btn btn-calendar-week">&rsaquo;</button>
+                    </div>
+                    <div class="calendar-menu__widget_element">
+                        Tydzień: <span id="calendar-buttons"></span>
+                        <button onclick="cal.showWeek('all')" class="btn btn-calendar-week">Wszytkie</button>
+                    </div>
                 </div>
-                <div class="calendar-menu__widget">
-                    Tydzień: <span id="calendar-buttons"></span>
+
+                <div class="form calendar-menu__widget">
+                    <div class="calendar-menu__widget_element">
+                        <select id="id_salon">
+                        </select>
+                    </div>
+                    <div class="calendar-menu__widget_element">
+                        <select id="id_employee">
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="month">
@@ -49,10 +70,18 @@
                             >
                                 <div class="label"><b>{{ day.date }}</b> - {{ day.day_name }}</div>
                                 {% for event in day.events %}
-                                    <a class="event" href="{{ event.get_url }}">
+                                    <a class="event"
+                                       href="{{ event.get_url }}"
+                                       employee_id="{{ event.employee.id }}"
+                                       salon_id="{{ event.salon.id }}"
+                                    >
                                         {{ event.start_time|date:"H:i" }}-{{ event.end_time|date:"H:i" }}<br>
                                         {{ event.title }}<br>
-                                        {{ event.employee }}
+                                        {% if event.employee == None %}
+                                            <span>Brak pracownika!</span>
+                                        {% else %}
+                                            {{ event.employee }}
+                                        {% endif %}
                                     </a>
                                 {% endfor %}
                             </div>
@@ -68,16 +97,41 @@
 
 {% block script %}
 <script>
-
 class Calendar{
     constructor(object_id) {
         this.calendar = document.getElementById(object_id)
         this.weeks = this.weeksList()
+        this.events = this.eventsList()
         this.week_intervals = this.weekIntervals()
-        this.is_today_in_month = false
         this.buttons = []
         this.setupView()
+    }
+    setURIParam(key, value){
+        const urlParams = new URLSearchParams(window.location.search)
+        urlParams.set('main_position', document.getElementById('main').scrollTop)
+        urlParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
 
+        const employee_id = this.calendar.querySelector('[id="id_employee"]').value
+        console.log(employee_id)
+        if (employee_id === ''){
+            urlParams.set('employee_id', 'none')
+        } else {
+            urlParams.set('employee_id', employee_id)
+        }
+        urlParams.set(key, value);
+        window.location.search = urlParams;
+    }
+    getURIParam(key){
+        const urlParams = new URLSearchParams(window.location.search)
+        return urlParams.get(key);
+    }
+    prevMonth(){
+        const prev_month = this.calendar.getAttribute('prev_month')
+        this.setURIParam('month', prev_month)
+    }
+    nextMonth(){
+        const next_month = this.calendar.getAttribute('next_month')
+        this.setURIParam('month', next_month)
     }
     weeksList(){
         return this.calendar.querySelectorAll("[week_num]")
@@ -86,18 +140,6 @@ class Calendar{
         this.weeks.forEach(week => {
             week.style.display = 'none'
         })
-    }
-    resetButtons(){
-        this.buttons.forEach(button => {
-            button.disabled = false
-        })
-    }
-    toDate(date_string){
-        const dateString = date_string;
-        const dateParts = dateString.split('-');
-        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-
-        return dateObject
     }
     weekIntervals(){
         let intervals = []
@@ -111,6 +153,79 @@ class Calendar{
         })
         return intervals
     }
+    showWeek(index){
+        this.setURIParam('week', index)
+    }
+    activateWeek(index){
+        if (index === 'all'){
+            this.weeks.forEach(week => {
+                week.style.display = 'grid'
+            })
+        } else if (index === 'last'){
+            this.weeks[this.weeks.length -1].style.display = 'grid'
+            this.deactivateButton('last')
+        } else {
+            this.weeks[index].style.display = 'grid'
+            this.deactivateButton(index)
+        }
+    }
+    setupActiveWeek(){
+        this.hideWeeks()
+        this.resetButtons()
+        const week_index = this.getURIParam('week')
+
+        if (week_index === null){
+            const today = this.toDate(this.calendar.getAttribute('today'))
+            let is_today_in_month = false
+            this.week_intervals.forEach((week, index) => {
+                if (today >= week.start && today <= week.stop) {
+                    is_today_in_month = true
+                    this.setURIParam('week', index)
+                }
+            })
+            if (is_today_in_month === false){
+                this.setURIParam('week', 0)
+            } else {
+                this.setURIParam('week', index)
+            }
+        } else {
+            this.activateWeek(week_index)
+        }
+
+        const main_position = parseInt(this.getURIParam('main_position'))
+        if (main_position > 0){
+            document.getElementById('main').scrollTop = main_position
+        }
+
+    }
+    eventsList(){
+        return this.calendar.querySelectorAll('[class="event"]')
+    }
+    hideEvents(){
+        this.events.forEach(event => {
+            event.style.display = 'none'
+        })
+    }
+    showEvents(){
+        this.hideEvents()
+        const salon_id = this.calendar.querySelector('[id="id_salon"]').value
+        const employee_id = this.calendar.querySelector('[id="id_employee"]').value
+
+        this.events.forEach(event => {
+            const event_salon_id = event.getAttribute('salon_id')
+            const event_employee_id = event.getAttribute('employee_id')
+
+            if (event_salon_id === salon_id){
+                if (salon_id === ''){
+                    event.style.display = 'block'
+                } else {
+                    if (event_employee_id === employee_id) {
+                        event.style.display = 'block'
+                    }
+                }
+            }
+        })
+    }
     makeButtons(){
         let buttons = ''
         this.weeks.forEach((week, index) => {
@@ -119,35 +234,82 @@ class Calendar{
         this.calendar.querySelector('[id="calendar-buttons"]').innerHTML = buttons
         this.buttons = [...this.calendar.getElementsByClassName('week-counter')]
     }
-    showWeek(index){
-        this.hideWeeks()
-        this.resetButtons()
-        this.activateWeek(index)
-        this.deactivateButton(index)
-    }
-    activateWeek(index){
-        const active_week = this.weeks[index]
-        active_week.style.display = 'grid'
+    resetButtons(){
+        this.buttons.forEach(button => {
+            button.disabled = false
+        })
     }
     deactivateButton(index){
-        const disabled_button = this.buttons[index]
-        disabled_button.disabled = true
+        if (index === 'last') {
+            const disabled_button = this.buttons[this.buttons.length - 1]
+            disabled_button.disabled = true
+        } else {
+            const disabled_button = this.buttons[index]
+            disabled_button.disabled = true
+        }
+    }
+    toDate(date_string){
+        const dateString = date_string;
+        const dateParts = dateString.split('-');
+        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        return dateObject
     }
     setupView(){
         this.hideWeeks()
-        const today = this.toDate(this.calendar.getAttribute('today'))
+        this.hideEvents()
         this.makeButtons()
-        this.week_intervals.forEach((week, index) => {
-            if (today >= week.start && today <= week.stop) {
-                week.element.style.display = 'grid'
-                this.deactivateButton(index)
-                this.is_today_in_month = true
-            }
-        })
+        this.setupActiveWeek()
     }
 }
 cal = new Calendar('calendar')
 
 
+function getemployees() {
+    const salonId = $('#id_salon').val()
+    const employeeSelect = $('#id_employee')
+    if (salonId && salonId !== 'none') {
+        $.ajax({
+            url: '/get_employees/',
+            data: {
+                'salon_id': salonId
+            },
+            dataType: 'json',
+            success: function (data) {
+                employeeSelect.empty()
+                $.each(data, function (key, value) {
+                    employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name))
+                });
+                employeeSelect.append($('<option></option>').attr('value', '').text('brak'))
+                cal.showEvents()
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+    const salonsSelect = $('#id_salon');
+    $.ajax({
+        url:'/get_salons/',
+        data: {},
+        dataType: 'json',
+        success: function (data) {
+            salonsSelect.empty()
+            $.each(data, function (key, value) {
+                salonsSelect.append($('<option></option>').attr('value', value.id).text(value.name))
+            });
+            getemployees()
+        }
+    })
+
+
+    salonsSelect.change(function () {
+        getemployees()
+        cal.showEvents()
+    });
+
+    $('#id_employee').change(function () {
+        cal.showEvents()
+    })
+});
 </script>
 {% endblock %}
