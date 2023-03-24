@@ -54,7 +54,7 @@ class EventDelete(DeleteView):
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
-    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    month = str(prev_month.year) + '-' + str(prev_month.month)
     return month
 
 
@@ -62,7 +62,7 @@ def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
-    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    month = str(next_month.year) + '-' + str(next_month.month)
     return month
 
 
@@ -91,7 +91,13 @@ def get_employees(request):
     salon_id = request.GET.get('salon_id')
     salon = get_object_or_404(Salon, id=salon_id)
     employees = Employee.objects.filter(salon=salon)
-    data = [{'id': e.id, 'name': e.name} for e in employees]
+    data = [{'id': e.id, 'name': e.username} for e in employees]
+    return JsonResponse(data, safe=False)
+
+
+def get_salons(request):
+    salons = Salon.objects.all()
+    data = [{'id': s.id, 'name': s.name} for s in salons]
     return JsonResponse(data, safe=False)
 
 
