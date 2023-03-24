@@ -25,6 +25,8 @@
                         <span><strong>{{ user }}</strong></span>
                     </div>
                     <div class="flex flex-nowrap flex-align-center">
+                        <a href="{% url 'password_change' %}"><span class="more-than-550">Zmień hasło</span></a>
+
                         <a href="{% url 'logout' %}"><span class="more-than-550">Wyloguj</span></a>
                         <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
                     </div>
