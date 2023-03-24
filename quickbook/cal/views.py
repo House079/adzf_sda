@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import calendar
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView, TemplateView
 from django.utils.safestring import mark_safe
@@ -97,4 +98,12 @@ def get_employees(request):
 def get_salons(request):
     salons = Salon.objects.all()
     data = [{'id': s.id, 'name': s.name} for s in salons]
+    return JsonResponse(data, safe=False)
+
+
+def get_events_at_day(request):
+    selected_date = request.GET.get('day')
+    selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+    events = Event.objects.filter(day=selected_date)
+    data = [{'title': ev.title, 'start_time': ev.start_time, 'end_time': ev.end_time, 'salon': ev.salon.name, 'employee': ev.employee.name} for ev in events]
     return JsonResponse(data, safe=False)

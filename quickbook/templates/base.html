@@ -51,7 +51,19 @@
 
                 {% block content %}{% endblock %}
             </div>
-
+        <div class="main">
+        <main class="app-content">
+            <div class="app-title">
+                {% block breadcrumb %}
+                {% endblock breadcrumb %}
+            </div>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <!-- Essential javascripts for application to work-->
+        {% include 'cal/js.html' %}
+        {% block extrascripts %}
+        {% endblock extrascripts %}
         </div>
     {% else %}
 
