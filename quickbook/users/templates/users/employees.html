@@ -24,7 +24,9 @@
                 <th>Email</th>
                 <th>Data przyjęcia</th>
                 <th>Salon</th>
+                {% if user.is_superuser %}
                 <th>Edycja</th>
+                {% endif %}
             </tr>
             {% for employee in employee_list %}
             <tr>

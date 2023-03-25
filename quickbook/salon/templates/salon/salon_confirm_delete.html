@@ -8,7 +8,7 @@
         <form method="post">
             {% csrf_token %}
             <button class="btn">Tak, na pewno</button>
-            <a class="btn btn-info left" href="{% url 'salon' %}"><button class="btn">Nie, wróć do listy salonów</button></a>
+            <a class="btn btn-info left" href="{% url 'salon:list' %}" class="btn">Nie, wróć do listy salonów</a>
         </form>
     </div>
 </div>
