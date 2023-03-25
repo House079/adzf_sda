@@ -62,3 +62,16 @@ class CustomAuthenticationForm(AuthenticationForm):
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
+
+class EmployeeUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ('username', 'name', 'surname', 'email', 'salon', 'is_superuser')
+        labels = {
+            'username': 'Nazwa użytkownika',
+            'name': 'Imię',
+            'surname': 'Nazwisko',
+            'email': 'E-mail',
+            'salon': 'Przypisz salon',
+            'is_superuser': 'Uprawnienia Admina'
+        }

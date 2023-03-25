@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, ListView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UpgradedUserCreationForm, CustomAuthenticationForm
+from .forms import UpgradedUserCreationForm, CustomAuthenticationForm, EmployeeUpdateForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Employee
@@ -44,7 +44,7 @@ class EmployeeDelete(DeleteView):
 class EmployeeUpdate(UpdateView):
     model = Employee
     template_name = 'users/employee_update_form.html'
-    fields = ('username', 'name', 'surname', 'email', 'salon')
+    form_class = EmployeeUpdateForm
     success_url = reverse_lazy('users:employees_list')
 
 
