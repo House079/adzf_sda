@@ -9,5 +9,5 @@ class EventTypeForm(forms.ModelForm):
         labels = {
             'event_name': 'Nazwa usługi',
             'price': 'Cena',
-            'duration': 'Czas trwania (hh:mm:ss)',
+#             'duration': 'Czas trwania (hh:mm:ss)',
         }
