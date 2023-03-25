@@ -17,9 +17,26 @@ from salon.models import Salon
 from users.models import Employee
 from django.contrib.auth.decorators import user_passes_test
 
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = str(prev_month.year) + '-' + str(prev_month.month)
+    return month
 
-class MainPage(LoginRequiredMixin, TemplateView):
-    template_name = 'cal/base.html'
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = str(next_month.year) + '-' + str(next_month.month)
+    return month
+
+
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return datetime(year, month, day=1)
+    return datetime.today()
 
 
 class CalendarView(LoginRequiredMixin, ListView):
@@ -54,28 +71,7 @@ class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
 
 
-def prev_month(d):
-    first = d.replace(day=1)
-    prev_month = first - timedelta(days=1)
-    month = str(prev_month.year) + '-' + str(prev_month.month)
-    return month
-
-
-def next_month(d):
-    days_in_month = calendar.monthrange(d.year, d.month)[1]
-    last = d.replace(day=days_in_month)
-    next_month = last + timedelta(days=1)
-    month = str(next_month.year) + '-' + str(next_month.month)
-    return month
-
-
-def get_date(req_day):
-    if req_day:
-        year, month = (int(x) for x in req_day.split('-'))
-        return datetime(year, month, day=1)
-    return datetime.today()
-
-
+@login_required()
 def event(request, event_id=None):
     instance = Event()
     if event_id:
@@ -90,6 +86,7 @@ def event(request, event_id=None):
     return render(request, 'cal/event.html', {'form': form})
 
 
+@login_required()
 def get_employees(request):
     salon_id = request.GET.get('salon_id')
     salon = get_object_or_404(Salon, id=salon_id)
@@ -98,12 +95,14 @@ def get_employees(request):
     return JsonResponse(data, safe=False)
 
 
+@login_required()
 def get_salons(request):
     salons = Salon.objects.all()
     data = [{'id': s.id, 'name': s.name} for s in salons]
     return JsonResponse(data, safe=False)
 
 
+@login_required()
 def get_events_at_day(request):
     selected_date = request.GET.get('day')
     selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
