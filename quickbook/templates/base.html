@@ -11,73 +11,43 @@
     {% block css %}{% endblock %}
 </head>
 <body>
-    {% if user.is_authenticated %}
-        <div id="container" class="container container-shown-nav-pane">
-
-            <div class="nav-bar">
-
-                <div class="flex flex-nowrap flex-align-center">
-                    <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
-                    <a href="/"><img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}"></a>
-                </div>
-
-                <div class="flex flex-nowrap flex-align-center">
-                    {% if user.is_authenticated %}
-                        <div class="flex flex-nowrap flex-align-center pd-r-m">
-                            <a href="{% url 'users:user_panel' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span><strong>{{ user }}</strong></span></a>
-                        </div>
-                        <div class="flex flex-nowrap flex-align-center">
-                            <a href="{% url 'logout' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span class="more-than-550">Wyloguj</span></a>
-                            <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
-                        </div>
-                    {% else %}
-                        <div class="flex flex-nowrap flex-align-center">
-                            <a href="{% url 'users:login' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span class="more-than-550">Zaloguj się</span></a>
-                            <img class="icon pd-l-m" alt="Zaloguj" src="{% static 'icons/logout.svg' %}">
-                        </div>
-                    {% endif %}
-                </div>
+    <div id="container" class="container container-shown-nav-pane">
+        <div class="nav-bar">
+            <div class="flex flex-nowrap flex-align-center">
+                <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
+                <a href="/"><img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}"></a>
             </div>
-
-            <div id="nav-pane" class="nav-pane gradient_bg">
-                <nav class="nav-pane__nav">
-                    <a style="text-decoration: none; color: inherit;" href="{% url 'users:employees_list' %}"><div class="nav-pane__nav__btn">Pracownicy</div></a>
-                    <a style="text-decoration: none; color: inherit;" href="{% url 'salon:send_salon' %}"><div class="nav-pane__nav__btn">Salony</div></a>
-                    <a style="text-decoration: none; color: inherit;" href="{% url 'cal:calendar' %}"><div class="nav-pane__nav__btn">Kalendarz</div></a>
-                    <a style="text-decoration: none; color: inherit;" href="{% url 'prices:prices' %}"><div class="nav-pane__nav__btn">Usługi</div></a>
-                </nav>
+            <div class="flex flex-nowrap flex-align-center">
+                {% if user.is_authenticated %}
+                    <div class="flex flex-nowrap flex-align-center pd-r-m">
+                        <a href="{% url 'users:user_panel' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span><strong>{{ user }}</strong></span></a>
+                    </div>
+                    <div class="flex flex-nowrap flex-align-center">
+                        <a href="{% url 'logout' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span class="more-than-550">Wyloguj</span></a>
+                        <img class="icon pd-l-m" alt="Wyloguj" src="{% static 'icons/logout.svg' %}">
+                    </div>
+                {% else %}
+                    <div class="flex flex-nowrap flex-align-center">
+                        <a href="{% url 'users:login' %}" style="display: inline-block; text-decoration: none; color: inherit;"><span class="more-than-550">Zaloguj się</span></a>
+                        <img class="icon pd-l-m" alt="Zaloguj" src="{% static 'icons/logout.svg' %}">
+                    </div>
+                {% endif %}
             </div>
-
-            <div id="main" class="main">
-
-
-            </div>
-        <div class="main">
-        <main class="app-content">
-            <div class="app-title">
-                {% block breadcrumb %}
-                {% endblock breadcrumb %}
-            </div>
-                            {% block content %}{% endblock %}
-        </main>
-        <!-- Essential javascripts for application to work-->
-        {% include 'cal/js.html' %}
-        {% block extrascripts %}
-        {% endblock extrascripts %}
         </div>
-    {% else %}
 
-            <div class="widget-container center_element" style="text-align: center">
-                <div class="widget white-bg box-shadow center_element" style="text-align: center">
+        <div id="nav-pane" class="nav-pane gradient_bg">
+            <nav class="nav-pane__nav">
+                <a style="text-decoration: none; color: inherit;" href="{% url 'users:employees_list' %}"><div class="nav-pane__nav__btn">Pracownicy</div></a>
+                <a style="text-decoration: none; color: inherit;" href="{% url 'salon:send_salon' %}"><div class="nav-pane__nav__btn">Salony</div></a>
+                <a style="text-decoration: none; color: inherit;" href="{% url 'cal:calendar' %}"><div class="nav-pane__nav__btn">Kalendarz</div></a>
+                <a style="text-decoration: none; color: inherit;" href="{% url 'prices:prices' %}"><div class="nav-pane__nav__btn">Usługi</div></a>
+            </nav>
+        </div>
 
-                    {% block login %}{% endblock %}
-
-                    {% block loggedout %}{% endblock %}
-
-                </div>
-            </div>
-    {% endif %}
-
+        <div id="main" class="main">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
 </body>
 </html>
 

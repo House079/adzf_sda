@@ -69,7 +69,13 @@
                                 {% for event in day.events %}
                                     <a class="event"
                                        href="{{ event.get_url }}"
-                                       employee_id="{{ event.employee.id }}"
+
+                                       {% if event.employee.id == None %}
+                                            employee_id="none"
+                                       {% else %}
+                                            employee_id="{{ event.employee.id }}"
+                                       {% endif %}
+
                                        salon_id="{{ event.salon.id }}"
                                     >
                                         {{ event.start_time|date:"H:i" }}-{{ event.end_time|date:"H:i" }}<br>
@@ -94,33 +100,39 @@
 
 {% block script %}
 <script>
-class Calendar{
+class Calendar {
     constructor(object_id) {
         this.calendar = document.getElementById(object_id)
         this.weeks = this.weeksList()
         this.events = this.eventsList()
         this.week_intervals = this.weekIntervals()
         this.buttons = []
+        this.hard = true
         this.setupView()
     }
     setURIParam(key, value){
-        const urlParams = new URLSearchParams(window.location.search)
-        urlParams.set('main_position', document.getElementById('main').scrollTop)
-        urlParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
+        const uriParams = new URLSearchParams(window.location.search)
+        uriParams.set('main_position', document.getElementById('main').scrollTop)
+        uriParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
 
-        const employee_id = this.calendar.querySelector('[id="id_employee"]').value
-        console.log(employee_id)
-        if (employee_id === ''){
-            urlParams.set('employee_id', 'none')
-        } else {
-            urlParams.set('employee_id', employee_id)
+        try {
+            uriParams.set('employee_id', this.calendar.querySelector('[id="id_employee"]').value)
+        } catch (err) {
+            uriParams.set('employee_id', '')
         }
-        urlParams.set(key, value);
-        window.location.search = urlParams;
+
+        uriParams.set(key, value);
+        window.location.search = uriParams;
     }
     getURIParam(key){
         const urlParams = new URLSearchParams(window.location.search)
         return urlParams.get(key);
+    }
+    toDate(date_string){
+        const dateString = date_string;
+        const dateParts = dateString.split('-');
+        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        return dateObject
     }
     prevMonth(){
         const prev_month = this.calendar.getAttribute('prev_month')
@@ -182,18 +194,10 @@ class Calendar{
             })
             if (is_today_in_month === false){
                 this.setURIParam('week', 0)
-            } else {
-                this.setURIParam('week', index)
             }
         } else {
             this.activateWeek(week_index)
         }
-
-        const main_position = parseInt(this.getURIParam('main_position'))
-        if (main_position > 0){
-            document.getElementById('main').scrollTop = main_position
-        }
-
     }
     eventsList(){
         return this.calendar.querySelectorAll('[class="event"]')
@@ -204,9 +208,10 @@ class Calendar{
         })
     }
     showEvents(){
-        this.hideEvents()
-        const salon_id = this.calendar.querySelector('[id="id_salon"]').value
-        const employee_id = this.calendar.querySelector('[id="id_employee"]').value
+        let salon_id = this.calendar.querySelector('[id="id_salon"]').value
+        let employee_id = this.calendar.querySelector('[id="id_employee"]').value
+
+        this.hard = false
 
         this.events.forEach(event => {
             const event_salon_id = event.getAttribute('salon_id')
@@ -245,63 +250,75 @@ class Calendar{
             disabled_button.disabled = true
         }
     }
-    toDate(date_string){
-        const dateString = date_string;
-        const dateParts = dateString.split('-');
-        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-        return dateObject
-    }
     setupView(){
         this.hideWeeks()
         this.hideEvents()
         this.makeButtons()
         this.setupActiveWeek()
+        const main_position = parseInt(this.getURIParam('main_position'))
+        if (main_position > 0){
+            document.getElementById('main').scrollTop = main_position
+        }
     }
-}
-cal = new Calendar('calendar')
+    getEmployees() {
+        const salonId = $('#id_salon').val()
+        const employeeSelect = $('#id_employee')
+        if (salonId && salonId !== 'none') {
+            $.ajax({
+                url: '/get_employees/',
+                data: {
+                    'salon_id': salonId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    employeeSelect.empty()
+                    $.each(data, function (key, value) {
+                        employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name))
+                    });
+                    employeeSelect.append($('<option></option>').attr('value', 'none').text('brak'))
 
-
-function getemployees() {
-    const salonId = $('#id_salon').val()
-    const employeeSelect = $('#id_employee')
-    if (salonId && salonId !== 'none') {
+                    if (cal.hard === true){
+                        const employee_id = new URLSearchParams(window.location.search).get('employee_id')
+                        if (employee_id !== ''){
+                            cal.calendar.querySelector('[id="id_employee"]').value = employee_id
+                        }
+                    }
+                    cal.showEvents()
+                }
+            })
+        }
+    }
+    getSalons(){
+        this.hideEvents()
         $.ajax({
-            url: '/get_employees/',
-            data: {
-                'salon_id': salonId
-            },
+            url:'/get_salons/',
+            data: {},
             dataType: 'json',
             success: function (data) {
-                employeeSelect.empty()
+                $('#id_salon').empty()
                 $.each(data, function (key, value) {
-                    employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name))
+                    $('#id_salon').append($('<option></option>').attr('value', value.id).text(value.name))
                 });
-                employeeSelect.append($('<option></option>').attr('value', '').text('brak'))
-                cal.showEvents()
+
+                if (cal.hard === true){
+                    const salon_id = new URLSearchParams(window.location.search).get('salon_id')
+                    if (salon_id !== ''){
+                        cal.calendar.querySelector('[id="id_salon"]').value = salon_id
+                    }
+                }
+                cal.getEmployees()
             }
-        });
+        })
     }
 }
 
+cal = new Calendar('calendar')
+
 $(document).ready(function () {
-    const salonsSelect = $('#id_salon');
-    $.ajax({
-        url:'/get_salons/',
-        data: {},
-        dataType: 'json',
-        success: function (data) {
-            salonsSelect.empty()
-            $.each(data, function (key, value) {
-                salonsSelect.append($('<option></option>').attr('value', value.id).text(value.name))
-            });
-            getemployees()
-        }
-    })
+    cal.getSalons()
 
-
-    salonsSelect.change(function () {
-        getemployees()
-        cal.showEvents()
+    $('#id_salon').change(function () {
+        cal.getEmployees()
     });
 
     $('#id_employee').change(function () {
