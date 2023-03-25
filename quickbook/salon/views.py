@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -16,6 +17,7 @@ def superuser_required():
         return WrappedClass
     return wrapper
 
+
 def staff_user_required():
     def wrapper(wrapped):
         class WrappedClass(UserPassesTestMixin, wrapped):
@@ -25,6 +27,7 @@ def staff_user_required():
     return wrapper
 
 
+@login_required()
 def send_salon(request):
     form = SalonForm(request.POST or None)
 
@@ -47,12 +50,14 @@ class SalonDetail(DetailView, PermissionRequiredMixin):
     model = Salon
     permission_required = 'salon.view_salon'
 
+
 @superuser_required()
 class SalonUpdate(UpdateView):
     model = Salon
     template_name = 'salon/salon_update_form.html'
     fields = ('name', 'city', 'address', 'details')
     success_url = reverse_lazy('salon:send_salon')
+
 
 @superuser_required()
 class SalonDelete(DeleteView):
