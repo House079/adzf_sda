@@ -22,7 +22,7 @@ class EventTypesList(EventType, ListView):
 
 
 class CreateEvent(CreateView):
-    model = EventType
-    fields = ('event_name', 'price', 'duration')
+    form_class = EventTypeForm
     success_url = reverse_lazy('prices:prices')
+    template_name = 'prices/eventtype_form.html'
 
