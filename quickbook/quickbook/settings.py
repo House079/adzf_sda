@@ -39,11 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'salon.apps.SalonConfig',
-    # 'schedule',
     'cal.apps.CalConfig',
-    'cal2.apps.Cal2Config',
     'prices',
-
 ]
 
 MIDDLEWARE = [
