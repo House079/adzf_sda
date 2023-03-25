@@ -235,6 +235,12 @@ class Calendar {
     addEvent(day){
         const uriParams = new URLSearchParams(window.location.search)
         uriParams.set('day', day)
+        uriParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
+        try {
+            uriParams.set('employee_id', this.calendar.querySelector('[id="id_employee"]').value)
+        } catch (err) {
+            uriParams.set('employee_id', '')
+        }
         window.location.href = '/event/new/?' + uriParams.toString()
     }
     makeButtons(){

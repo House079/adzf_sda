@@ -105,7 +105,22 @@ def get_salons(request):
 @login_required()
 def get_events_at_day(request):
     selected_date = request.GET.get('day')
+    selected_employee = request.GET.get('employee')
+    selected_salon = request.GET.get('salon')
+
     selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
-    events = Event.objects.filter(day=selected_date)
-    data = [{'title': ev.title, 'start_time': ev.start_time, 'end_time': ev.end_time, 'salon': ev.salon.name, 'employee': ev.employee.name} for ev in events]
+
+    if selected_salon == 'none':
+        events = Event.objects.filter(day=selected_date, employee=None, salon=selected_salon).order_by('start_time')
+    else:
+        events = Event.objects.filter(day=selected_date, employee=selected_employee, salon=selected_salon).order_by('start_time')
+
+    data = [
+        {
+            'title': ev.title,
+            'start_time': ev.start_time,
+            'end_time': ev.end_time,
+            'salon': ev.salon.name,
+            'employee': ev.employee.name
+        } for ev in events]
     return JsonResponse(data, safe=False)
