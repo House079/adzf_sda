@@ -37,7 +37,9 @@
                     <th>Email</th>
                     <th>Data przyjęcia</th>
                     <th>Salon</th>
-
+                    {% if user.is_superuser %}
+                    <th>Opcje</th>
+                    {% endif %}
                 </tr>
                 {% for employee in object.employees.all %}
                 <tr>
@@ -47,8 +49,8 @@
                     <td>{{ employee.date_joined }}</td>
                     <td>{{ employee.salon }}</td>
                     {% if user.is_superuser %}
-                    <td><button><a href="{% url 'users:delete' employee.pk %}">Usuń</a>|</button></td>
-                    <td><button><a href="{% url 'users:update' employee.pk %}">Edytuj</a>|</button></td>
+                        <td><a href="{% url 'users:delete' employee.pk %}"><button class="btn" style="min-width: 60px">Usuń</button></a>
+                        <a href="{% url 'users:update' employee.pk %}"><button class="btn" style="min-width: 60px">Edytuj</button></a></td>
                     {% endif %}
                 {% endfor %}
                 </tr>
