@@ -65,7 +65,10 @@
                                 class="day {% if calendar.today == day.date %}today{% endif %}"
                                 date="{{ day.date }}"
                             >
-                                <div class="label"><b>{{ day.date }}</b> - {{ day.day_name }}</div>
+                                <div class="label">
+                                    <button onclick="cal.addEvent('{{ day.date }}')" class="btn btn-calendar-week">+</button>
+                                    <b>{{ day.date }}</b> - {{ day.day_name }}
+                                </div>
                                 {% for event in day.events %}
                                     <a class="event"
                                        href="{{ event.get_url }}"
@@ -208,6 +211,7 @@ class Calendar {
         })
     }
     showEvents(){
+        this.hideEvents()
         let salon_id = this.calendar.querySelector('[id="id_salon"]').value
         let employee_id = this.calendar.querySelector('[id="id_employee"]').value
 
@@ -227,6 +231,11 @@ class Calendar {
                 }
             }
         })
+    }
+    addEvent(day){
+        const uriParams = new URLSearchParams(window.location.search)
+        uriParams.set('day', day)
+        window.location.href = '/event/new/?' + uriParams.toString()
     }
     makeButtons(){
         let buttons = ''
@@ -289,7 +298,6 @@ class Calendar {
         }
     }
     getSalons(){
-        this.hideEvents()
         $.ajax({
             url:'/get_salons/',
             data: {},

@@ -43,6 +43,8 @@
 }
 .calendar .month .week .day .label {
   font-size: 0.8em;
+  overflow-x: clip;
+  white-space: nowrap;
 }
 .calendar .month .week .day .event {
   display: block;
