@@ -15,7 +15,7 @@
         <div class="nav-bar">
             <div class="flex flex-nowrap flex-align-center">
                 <img id="nav-pane-controller" class="icon pd-r-m pointer" alt="Ukryj menu boczne" src="{% static 'icons/menu.svg' %}">
-                <a href="/"><img class="icon pd-l-m more-than-375" alt="logo" src="{% static 'images/logo_white.svg' %}"></a>
+                <a  class="logo-container more-than-375" href="/"><img class="icon pd-l-m" alt="logo" src="{% static 'images/logo_white.svg' %}"></a>
             </div>
             <div class="flex flex-nowrap flex-align-center">
                 {% if user.is_authenticated %}

@@ -36,8 +36,8 @@
                 <div class="calendar-menu__widget">
                     <div class="calendar-menu__widget__element">
                         Miesiąc:
-                        <button onclick="cal.prevMonth()" class="btn btn-calendar-week">&lsaquo;</button></a>
-                        <a style="color: white" href="{% url 'cal:calendar' %}"><button class="btn btn-calendar-week">Teraz</button></a>
+                        <button onclick="cal.prevMonth()" class="btn btn-calendar-week">&lsaquo;</button>
+                        <button onclick="cal.goNow()" class="btn btn-calendar-week">Teraz</button>
                         <button onclick="cal.nextMonth()" class="btn btn-calendar-week">&rsaquo;</button>
                     </div>
                     <div class="calendar-menu__widget_element">
@@ -133,13 +133,28 @@ class Calendar {
     }
     toDate(date_string){
         const dateString = date_string;
-        const dateParts = dateString.split('-');
-        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        const dateParts = dateString.split('-')
+        const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
         return dateObject
     }
     prevMonth(){
         const prev_month = this.calendar.getAttribute('prev_month')
         this.setURIParam('month', prev_month)
+    }
+    goNow(){
+        const uriParams = new URLSearchParams(window.location.search)
+        uriParams.set('main_position', document.getElementById('main').scrollTop)
+        uriParams.set('salon_id', this.calendar.querySelector('[id="id_salon"]').value)
+
+        try {
+            uriParams.set('employee_id', this.calendar.querySelector('[id="id_employee"]').value)
+        } catch (err) {
+            uriParams.set('employee_id', '')
+        }
+
+        uriParams.delete('week')
+        uriParams.delete('month')
+        window.location.search = uriParams
     }
     nextMonth(){
         const next_month = this.calendar.getAttribute('next_month')
