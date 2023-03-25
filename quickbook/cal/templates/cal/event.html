@@ -34,91 +34,102 @@ Event
                 </table>
             </div>
         </div>
-
     </div>
-
 </div>
-        <script>
-            $(document).ready(function() {
-                $('#id_day').change(function() {
-                    var selected_day = $(this).val();
-                    $.ajax({
-                        url: '/get_events_at_day/',
-                        data: {
-                            'day': selected_day
-                        },
-                        dataType: 'json',
-                        success: function(data) {
-                            var event_list = $('#event-list');
-                            event_list.empty();
-                            if (data) {
-                                event_list.html("<th>Tytuł</th><th>Rozpoczęcie</th><th>Zakończenie</th><th>Salon</th><th>Pracownik</th>");
-                            } else {
-                                event_list.empty();
-                            }
-                            $.each(data, function(index, event) {
-                                var event_html = '<tr>' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
-                                event_list.append(event_html);
-                            });
-                        }
-                    });
-                });
-              $('#id_salon').change(function() {
-                var salonId = $(this).val();
-                if (salonId) {
-                  $.ajax({
-                    url: '/get_employees/',
-                    data: {
-                      'salon_id': salonId
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                      var employeeSelect = $('#id_employee');
-                      employeeSelect.empty();
-                      $.each(data, function(key, value) {
-                        employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name));
-                      });
-                    }
-                  });
-                }
-              });
-            });
-        </script>
-
-
-
-
-
-
-{#$(document).ready(function() {#}
-{#    var event_list = $('#event-list');#}
-{##}
-{#    $('#id_day').change(function() {#}
-{#        var selected_day = $(this).val();#}
-{#        $.ajax({#}
-{#            url: '/get_events_at_day/',#}
-{#            data: {#}
-{#                'day': selected_day#}
-{#            },#}
-{#            dataType: 'json',#}
-{#            success: function(data) {#}
-{#                                      var employeeSelect = $('#id_employee');#}
-{#                      employeeSelect.empty();#}
-{#                      $.each(data, function(key, value) {#}
-{#                        employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name));#}
-{#                      });#}
-{#                event_list.html("<th>l.p.</th><th>Tytuł</th><th>Rozpoczęcie</th><th>Zakończenie</th><th>Salon</th><th>Pracownik</th>");#}
-{#                $.each(data, function(index, event) {#}
-{#                    var event_html = '<tr>' + '<td>' + event.salon_id + '</td>' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';#}
-{#                    event_list.append(event_html);#}
-{#                });#}
-{#            }#}
-{##}
-{#        });#}
-{#    });#}
-{##}
-{#});#}
-
-
-        </script>
 {% endblock content %}
+
+{% block script %}
+
+<script>
+class eventForm {
+    constructor(form_id) {
+        this.form = document.getElementById(form_id)
+        this.setupView()
+    }
+    getURIParam(key){
+        const urlParams = new URLSearchParams(window.location.search)
+        return urlParams.get(key)
+    }
+    setupView(){
+        this.form.querySelector('[id="id_day"]').value = this.getURIParam('day')
+        this.form.querySelector('[id="id_salon"]').value = this.getURIParam('salon_id')
+    }
+    getEmployees() {
+        const salonId = $('#id_salon').val()
+        const employeeSelect = $('#id_employee')
+        if (salonId && salonId !== 'none') {
+            $.ajax({
+                url: '/get_employees/',
+                data: {
+                    'salon_id': salonId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    employeeSelect.empty()
+                    $.each(data, function (key, value) {
+                        employeeSelect.append($('<option></option>').attr('value', value.id).text(value.name))
+                    });
+                    employeeSelect.append($('<option></option>').attr('value', 'none').text('brak'))
+
+                    if (event_form.hard === true){
+                        const employee_id = new URLSearchParams(window.location.search).get('employee_id')
+                        if (employee_id !== ''){
+                            event_form.form.querySelector('[id="id_employee"]').value = employee_id
+                        }
+                    }
+                    event_form.showEvents()
+                }
+            })
+        }
+    }
+    showEvents() {
+        const selected_day = $('#id_day').val()
+        const selected_employee = $('#id_employee').val()
+        const selected_salon = $('#id_salon').val()
+        $.ajax({
+            url: '/get_events_at_day/',
+            data: {
+                'day': selected_day,
+                'employee': selected_employee,
+                'salon': selected_salon,
+            },
+            dataType: 'json',
+            success: function(data) {
+                const event_list = $('#event-list')
+                event_list.empty();
+                if (data) {
+                    event_list.html("<th>Tytuł</th><th>Rozpoczęcie</th><th>Zakończenie</th><th>Salon</th><th>Pracownik</th>")
+                } else {
+                    event_list.empty()
+                }
+                $.each(data, function(index, event) {
+                    let event_html = '<tr>' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
+                    event_list.append(event_html)
+                })
+            }
+        })
+    }
+}
+
+const event_form = new eventForm('event-form')
+
+$(document).ready(function () {
+event_form.getEmployees()
+
+    $('#id_salon').change(function () {
+        console.log('Zmiana salonu')
+        event_form.getEmployees()
+    })
+
+    $('#id_employee').change(function () {
+        console.log('Zmiana pracownika')
+        event_form.showEvents()
+    })
+
+    $('#id_day').change(function() {
+        console.log('Zmiana dnia')
+        event_form.showEvents()
+    })
+})
+</script>
+{% endblock %}

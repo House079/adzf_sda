@@ -58,6 +58,10 @@ body {
   padding: 10px;
   justify-content: space-between;
 }
+.container .nav-bar .logo-container {
+  display: flex;
+  align-items: center;
+}
 .container .nav-pane {
   grid-area: navpane;
   display: grid;

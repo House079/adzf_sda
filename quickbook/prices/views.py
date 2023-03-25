@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from .models import EventType
 from django.views.generic import ListView, CreateView
@@ -25,4 +26,3 @@ class CreateEvent(CreateView):
     form_class = EventTypeForm
     success_url = reverse_lazy('prices:prices')
     template_name = 'prices/eventtype_form.html'
-

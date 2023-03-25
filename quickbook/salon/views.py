@@ -33,7 +33,7 @@ def send_salon(request):
 
     if form.is_valid():
         salon = form.save()
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect('/salon')
     salons = Salon.objects.all()
     return render(request, 'salon/salon.html', {'form': form, 'salons': salons})
 
@@ -41,7 +41,7 @@ def send_salon(request):
 @staff_user_required()
 class SalonList(ListView, PermissionRequiredMixin):
     model = Salon
-    template_name = 'salon/salon.html'
+    template_name = 'salon/salon_list.html'
     permission_required = 'salon.view_salon'
 
 
@@ -56,10 +56,23 @@ class SalonUpdate(UpdateView):
     model = Salon
     template_name = 'salon/salon_update_form.html'
     fields = ('name', 'city', 'address', 'details')
-    success_url = reverse_lazy('salon:send_salon')
+    labels = {
+        'name': 'Nazwa',
+        'city': 'Miasto',
+        'address': 'Adres',
+        'details': 'Szczegóły'
+    }
+    success_url = reverse_lazy('salon:list')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['name'].label = self.labels['name']
+        form.fields['city'].label = self.labels['city']
+        form.fields['address'].label = self.labels['address']
+        form.fields['details'].label = self.labels['details']
+        return form
 
 @superuser_required()
 class SalonDelete(DeleteView):
     model = Salon
-    success_url = reverse_lazy('users:delete')
+    success_url = reverse_lazy('salon:list')

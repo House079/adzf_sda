@@ -46,6 +46,8 @@
 
         .label {
           font-size: 0.8em;
+          overflow-x: clip;
+          white-space:nowrap;
         }
 
         .event {
