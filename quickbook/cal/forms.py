@@ -12,7 +12,7 @@ class EventForm(forms.ModelForm):
     salon = forms.ModelChoiceField(queryset=Salon.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
     employee = forms.ModelChoiceField(queryset=Employee.objects.none(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    title = forms.ModelChoiceField(queryset=EventType.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    title = forms.ModelChoiceField(queryset=EventType.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}), label='Nazwa usługi')
 
     class Meta:
         model = Event
