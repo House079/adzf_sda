@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 import calendar
+from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -13,13 +15,14 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from salon.models import Salon
 from users.models import Employee
+from django.contrib.auth.decorators import user_passes_test
 
 
-class MainPage(TemplateView):
+class MainPage(LoginRequiredMixin, TemplateView):
     template_name = 'cal/base.html'
 
 
-class CalendarView(ListView):
+class CalendarView(LoginRequiredMixin, ListView):
     model = Event
     template_name = 'cal/calendar.html'
 
@@ -35,19 +38,19 @@ class CalendarView(ListView):
         return context
 
 
-class EventList(ListView):
+class EventList(LoginRequiredMixin, ListView):
     model = Event
 
 
-class EventCreate(CreateView):
+class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
 
 
-class EventDetail(DetailView):
+class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
 
 
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
 
 

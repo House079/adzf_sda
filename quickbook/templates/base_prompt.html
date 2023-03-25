@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick CSS | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    {% block head %}{% endblock %}
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+    <div class="prompt_container">
+        <div class="prompt">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>
+{% block script %}{% endblock %}

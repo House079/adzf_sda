@@ -1,12 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_prompt.html' %}
 {% block title %}Wylogowano{% endblock %}
 
-{% block loggedout %}
-    <div class="widget-container">
-        <div class="widget white-bg box-shadow">
-            <h1>Zostałeś wylogowany z aplikacji Quickbook</h1>
-            <a href="{% url 'users:login' %}"><button class="btn" >Zaloguj się ponownie</button></a>
-
-        </div>
-    </div>
+{% block content %}
+    <h1>Zostałeś wylogowany z aplikacji Quickbook</h1>
+    <a href="{% url 'users:login' %}"><button class="btn" >Zaloguj się ponownie</button></a>
 {% endblock %}

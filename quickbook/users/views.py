@@ -25,7 +25,7 @@ class UserPanel(LoginRequiredMixin, TemplateView):
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
     authentication_form = CustomAuthenticationForm
-    success_url = reverse_lazy('/')
+    success_url = reverse_lazy('cal:list')
 
 
 class EmployeesList(ListView):

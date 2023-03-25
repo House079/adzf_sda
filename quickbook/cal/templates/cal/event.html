@@ -46,7 +46,7 @@ Event
                 $('#id_day').change(function() {
                     var selected_day = $(this).val();
                     $.ajax({
-                        url: '/cal/get_events_at_day/',
+                        url: '/get_events_at_day/',
                         data: {
                             'day': selected_day
                         },
@@ -70,7 +70,7 @@ Event
                 var salonId = $(this).val();
                 if (salonId) {
                   $.ajax({
-                    url: '/cal/get_employees/',
+                    url: '/get_employees/',
                     data: {
                       'salon_id': salonId
                     },

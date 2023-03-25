@@ -1,23 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base_prompt.html' %}
 {% load static %}
 
 {% block title %}Logowanie{% endblock %}
 
 
-{% block login %}
+{% block content %}
     {% if form.errors %}
         <p>Nieprawidłowa nazwa użytkownika lub hasło</p>
         <p>Jeżeli nie pamiętasz hasła, możesz je <a href="{% url 'password_reset' %}">zresetować</a>.</p>
     {% endif %}
-        <div class="widget box-shadow white-bg centered" style="text-align: center">
-            <h1>Panel logowania Quickbook</h1>
+        <h1>Panel logowania Quickbook</h1>
 
-            <form method="post" class="form" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <table>{{ form }}</table>
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}" />
-                <button class="btn" type="submit" value="Zaloguj się">Zaloguj się</button>
-            </form>
-        </div>
-
+        <form method="post" class="form">
+            {{ form }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button class="btn" type="submit" value="Zaloguj się">Zaloguj się</button>
+        </form>
 {% endblock %}
