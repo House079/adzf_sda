@@ -4,11 +4,17 @@
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <form method="post">
-            <table>{{ form }}</table>
-            {% csrf_token %}
-            <button class="btn">Zmień</button>
-        </form>
+        <h1>Edycja salonu</h1>
+    </div>
+</div>
+    <div class="widget-container-clos-2">
+        <div class="widget white-bg box-shadow">
+            <form method="post" class="form">
+                {{ form }}
+                {% csrf_token %}
+                <button class="btn">Zmień</button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -56,8 +56,21 @@ class SalonUpdate(UpdateView):
     model = Salon
     template_name = 'salon/salon_update_form.html'
     fields = ('name', 'city', 'address', 'details')
+    labels = {
+        'name': 'Nazwa',
+        'city': 'Miasto',
+        'address': 'Adres',
+        'details': 'Szczegóły'
+    }
     success_url = reverse_lazy('salon:send_salon')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['name'].label = self.labels['name']
+        form.fields['city'].label = self.labels['city']
+        form.fields['address'].label = self.labels['address']
+        form.fields['details'].label = self.labels['details']
+        return form
 
 @superuser_required()
 class SalonDelete(DeleteView):
