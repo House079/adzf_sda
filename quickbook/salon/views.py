@@ -62,7 +62,7 @@ class SalonUpdate(UpdateView):
         'address': 'Adres',
         'details': 'Szczegóły'
     }
-    success_url = reverse_lazy('salon:send_salon')
+    success_url = reverse_lazy('salon:list')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
