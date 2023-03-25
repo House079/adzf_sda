@@ -23,6 +23,6 @@ class EventTypesList(EventType, ListView):
 
 class CreateEvent(CreateView):
     model = EventType
-    fields =('for_client', 'for_all', 'event_name', 'price', 'duration')
+    fields = ('event_name', 'price', 'duration')
     success_url = reverse_lazy('prices:prices')
 

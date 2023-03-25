@@ -4,4 +4,4 @@ from .models import EventType
 
 @admin.register(EventType)
 class EventTypeAdmin(admin.ModelAdmin):
-    list_display = ('event_name', 'price', 'duration', 'for_client', 'for_all')
+    list_display = ('event_name', 'price', 'duration')

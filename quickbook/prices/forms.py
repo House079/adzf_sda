@@ -5,4 +5,9 @@ from .models import EventType
 class EventTypeForm(forms.ModelForm):
     class Meta:
         model = EventType
-        fields = ('for_client', 'for_all', 'event_name', 'price', 'duration')
+        fields = ('event_name', 'price', 'duration')
+        labels = {
+            'event_name': 'Nazwa usługi',
+            'price': 'Cena',
+            'duration': 'Czas trwania (hh:mm:ss)',
+        }
