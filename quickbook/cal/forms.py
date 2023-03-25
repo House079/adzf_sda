@@ -1,14 +1,18 @@
+import datetime
+
 from django.forms import ModelForm, DateInput
 from django import forms
 from .models import Event
 from salon.models import Salon
 from users.models import Employee
+from prices.models import EventType
 
 
 class EventForm(forms.ModelForm):
     salon = forms.ModelChoiceField(queryset=Salon.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
     employee = forms.ModelChoiceField(queryset=Employee.objects.none(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
+    title = forms.ModelChoiceField(queryset=EventType.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Event
