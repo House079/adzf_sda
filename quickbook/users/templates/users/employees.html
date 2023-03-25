@@ -2,22 +2,29 @@
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <h1>Pracwonicy</h1>
+        <h1>Pracownicy</h1>
     </div>
 </div>
-
+<div class="widget-container">
+    <div class="widget">
+        {% if user.is_superuser %}
+            <a class="btn" href="{% url 'users:register' %}">Dodaj użytkownika</a>
+        {% endif %}
+    </div>
+</div>
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
     <div class="table-responsive-container">
-    <table class="table">
+    <table class="table table-text-align-center min-width-75">
     <tbody>
             <tr>
                 <th>Login</th>
-                <th>Imie</th>
+                <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Email</th>
-                <th>Data przyjecia</th>
+                <th>Data przyjęcia</th>
                 <th>Salon</th>
+                <th>Edycja</th>
             </tr>
             {% for employee in employee_list %}
             <tr>
@@ -28,8 +35,12 @@
                 <td>{{ employee.date_joined }}</td>
                 <td>{{ employee.salon }}</td>
                 {% if user.is_superuser %}
-                <td><a href="{% url 'users:delete' employee.pk %}"><button class="btn" style="min-width: 50px">Usuń</button></a></td>
-                <td><a href="{% url 'users:update' employee.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a></td>
+                    {% if employee.is_superuser %}
+                        <td><a href="{% url 'users:update' employee.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a></td>
+                    {% else %}
+                        <td><a href="{% url 'users:delete' employee.pk %}"><button class="btn" style="min-width: 50px">Usuń</button></a>
+                        <a href="{% url 'users:update' employee.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a></td>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             </tr>
@@ -38,7 +49,4 @@
     </div>
     </div>
 </div>
-    {% if user.is_superuser %}
-    <button class="btn"><a style="display: inline-block; text-decoration: none; color: inherit;" href="{% url 'users:register' %}">Dodaj użytkownika</a></button>
-    {% endif %}
 {% endblock content %}

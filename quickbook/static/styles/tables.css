@@ -5,6 +5,10 @@
 }
 .table th, .table td {
   padding: 4px;
+  vertical-align: center;
+}
+.table th .btn, .table td .btn {
+  margin-bottom: 0;
 }
 .table th {
   background-color: #8292a6;
@@ -14,6 +18,10 @@
 .table td {
   border: 1px solid #8292a6;
   background-color: #fff;
+}
+
+.table-text-align-center tr, .table-text-align-center th {
+  text-align: center;
 }
 
 .table-responsive-container {

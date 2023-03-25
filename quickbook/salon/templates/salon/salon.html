@@ -10,18 +10,20 @@
 
 <div class="widget-container-clos-2">
 {%  if user.is_superuser %}
-    <div class="widget color_gray_2_bd">
-        <form method="post">
-            <table>{{ form }}</table>
+
+    <div class="widget white-bg box-shadow">
+        <form method="post" class="form">
+            {{ form }}
             {% csrf_token %}
-            <input type="submit" class="btn" value="Dodaj salon">
+            <button class="btn">Dodaj Salon</button>
         </form>
     </div>
+
 {% endif %}
 
-    <div class="widget white-bg">
+    <div class="widget white-bg box-shadow">
         <div class="table-responsive-container">
-        <table class="table">
+        <table class="table table-text-align-center min-width-100">
             <tr>
                 <th>Nazwa</th>
                 <th>Miasto</th>
@@ -49,8 +51,6 @@
         </table>
     </div>
     </div>
-</div>
-
-
 
 {% endblock %}
+</div>

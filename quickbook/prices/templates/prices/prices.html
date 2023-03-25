@@ -1,27 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Cennik usług:</h1>
+{% extends 'base.html' %}
 
-<p></p>
-    <table border="solid">
-    <tr>
-        <td>Nazwa</td>
-        <td>Cena</td>
-        <td>Czas trwania</td>
-    </tr>
-    {% for event in object_list %}
-    <tr>
-        <td>{{ event.event_name }}</td>
-        <td>{{ event.price }}</td>
-        <td>{{ event.duration }}</td>
-    </tr>
-    {% endfor %}
-    <<p><a  href="{% url 'prices:create' %}">Dodaj event/usługę</a></p>
-</table>
-</body>
-</html>
+{% block title %}Cennik{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Usługi</h1>
+    </div>
+</div>
+<div class="widget-container">
+    <div class="widget">
+        <a class="btn" href="{% url 'prices:create' %}">Dodaj</a>
+    </div>
+</div>
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Cennik</h1>
+        <div class="table-responsive-container">
+            <table class="table min-width-75">
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Cena</th>
+                    <th>Czas trwania</th>
+                </tr>
+                {% for event in object_list %}
+                <tr>
+                    <td>{{ event.event_name }}</td>
+                    <td>{{ event.price }}</td>
+                    <td>{{ event.duration }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

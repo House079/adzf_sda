@@ -7,6 +7,11 @@
 
   th, td {
     padding: 4px;
+    vertical-align: center;
+
+    .btn {
+      margin-bottom: 0;
+    }
   }
 
   th {
@@ -19,6 +24,12 @@
     background-color: #fff;
   }
 
+}
+
+.table-text-align-center {
+  tr, th {
+    text-align: center;
+  }
 }
 
 .table-responsive-container {

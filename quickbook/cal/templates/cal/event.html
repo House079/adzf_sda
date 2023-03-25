@@ -6,9 +6,6 @@ Event
 
 {% block head %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +15,7 @@ Event
 
 <div class="widget-container">
     <div class="widget">
-        <a class="btn btn-info left" href="{% url 'cal:calendar' %}"><button class="btn">Powrót</button></a>
+        <a class="btn" href="{% url 'cal:calendar' %}">Powrót</a>
     </div>
 </div>
 
@@ -33,7 +30,7 @@ Event
     <div class="widget white-bg">
         <div class="widget white-bg box-shadow">
             <div class="table-responsive-container">
-                <table class="table" id="event-list" style="min-width: 100%">
+                <table class="table table-text-align-center min-width-100" id="event-list">
                 </table>
             </div>
         </div>
@@ -60,7 +57,7 @@ Event
                                 event_list.empty();
                             }
                             $.each(data, function(index, event) {
-                                var event_html = '<tr style="text-align: center">' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
+                                var event_html = '<tr>' + '<td>' + event.title +'</td>' + '<td>' + event.start_time + '</td>' + '<td>' + event.end_time + '</td>' + '<td>' + event.salon + '</td>' +  '<td>' + event.employee + '</td>' + '</tr>';
                                 event_list.append(event_html);
                             });
                         }

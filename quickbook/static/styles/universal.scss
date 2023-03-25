@@ -1,7 +1,26 @@
+@import "variables";
+
 // modifikators
 .icon {
   display: inline-block;
   height: 20px;
+}
+
+.helptext, .errorlist {
+  display: block;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.helptext {
+  background-color: $gray1;
+}
+
+.errorlist {
+  background-color: $red;
+  color: #ffffff;
 }
 
 // display
@@ -36,6 +55,14 @@
 
 .width-25 {
   width: 25%;
+}
+
+.min-width-100 {
+  min-width: 100%;
+}
+
+.min-width-75 {
+  min-width: 75%;
 }
 
 // Paddings

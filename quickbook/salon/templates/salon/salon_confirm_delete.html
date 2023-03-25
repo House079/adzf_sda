@@ -4,10 +4,11 @@
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <h3>Czy na pewno chcesz usunąć salon - {{ salon.name }}?</h3>
+        <h1>Czy na pewno chcesz usunąć salon - {{ salon.name }}?</h1>
         <form method="post">
             {% csrf_token %}
-            <input type="submit" value="Tak, na pewno" />
+            <button class="btn">Tak, na pewno</button>
+            <a class="btn btn-info left" href="{% url 'salon' %}"><button class="btn">Nie, wróć do listy salonów</button></a>
         </form>
     </div>
 </div>

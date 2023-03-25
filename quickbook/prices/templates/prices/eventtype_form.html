@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dodawanie eventu/usługi</title>
-</head>
-<body>
-<form method="post">
-    <table>{{ form }}</table>
-    {% csrf_token %}
-    <input type="submit" value="Dodaj/zmień" />
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Usługa{% endblock %}
+
+{% block content %}
+    <div class="widget-container">
+        <div class="widget white-bg box-shadow">
+            <h1>Usługa</h1>
+        </div>
+    </div>
+    <div class="widget-container-clos-2">
+        <div class="widget white-bg box-shadow">
+            <form method="post" class="form">
+                {{ form }}
+                {% csrf_token %}
+                <button class="btn">Zapisz</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
