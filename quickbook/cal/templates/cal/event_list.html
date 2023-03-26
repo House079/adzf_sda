@@ -29,7 +29,7 @@
             {% endif %}
         </form>
     <div class="table-responsive-container">
-    <table class="table table-text-align-center min-width-75">
+    <table class="table table-text-align-center min-width-100">
         <tbody>
             <tr>
                 <th>Nazwa</th>
@@ -47,7 +47,7 @@
                     <td>{{ event.day }}</td>
                     <td>{{ event.start_time }}</td>
                     <td>{{ event.salon }}</td>
-                    <td>{{ event.employee }}</td>
+                    <td>{{ event.employee.get_full_name }}</td>
                     <td>
                         <a href="{% url 'cal:event_edit' event.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a>
                         <a href="{% url 'cal:delete' event.pk %}"><button class="btn" style="min-width: 50px">Usuń</button></a>
