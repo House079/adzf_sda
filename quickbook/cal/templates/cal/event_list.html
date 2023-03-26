@@ -6,34 +6,38 @@
 
 {% block content %}
 
-<p><a class="btn-dark" href="{% url 'cal:event_new' %}">Dodaj event</a></p>
+<div class="widget-container">
+    <div class="widget">
+        <a class="btn" href="{% url 'cal:event_new' %}">Dodaj wizytę</a>
+    </div>
+</div>
 
-    <table class="table">
-        <tr>
-            <td>Nazwa</td>
-            <td>Opis</td>
-            <td>Dzień</td>
-            <td>Godzina</td>
-            <td>Salon</td>
-            <td>Pracownik</td>
-        </tr>
-        {% for event in object_list %}
-
+    <table class="table table-text-align-center min-width-75">
+        <tbody>
             <tr>
-                <td>{{ event.title }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.day }}</td>
-                <td>{{ event.start_time }}</td>
-                <td>{{ event.salon }}</td>
-                <td>{{ event.employee }}</td>
-                <td>
-                    <a href="{% url 'cal:event_edit' event.pk %}">Zmień</a>|
-                    <a href="{% url 'cal:delete' event.pk %}">Usuń</a>|
-                    <a href="{% url 'cal:detail' event.pk %}">Pokaż</a>
-                </td>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Dzień</th>
+                <th>Godzina</th>
+                <th>Salon</th>
+                <th>Pracownik</th>
+                <th>Edycja</th>
             </tr>
-
-        {% endfor %}
+            {% for event in object_list %}
+                <tr>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.day }}</td>
+                    <td>{{ event.start_time }}</td>
+                    <td>{{ event.salon }}</td>
+                    <td>{{ event.employee }}</td>
+                    <td>
+                        <a href="{% url 'cal:event_edit' event.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a>
+                        <a href="{% url 'cal:delete' event.pk %}"><button class="btn" style="min-width: 50px">Usuń</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 {% endblock content %}

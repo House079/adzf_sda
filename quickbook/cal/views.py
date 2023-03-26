@@ -69,6 +69,7 @@ class EventDetail(LoginRequiredMixin, DetailView):
 
 class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
+    success_url = '/'
 
 
 @login_required()

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Czy na pewno chcesz usunąć wizytę?{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Czy na pewno chcesz usunąć tę wizytę?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn">Tak, na pewno</button>
+            <a class="btn" href="{% url 'cal:list' %}">Nie, wróć do listy usług</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
