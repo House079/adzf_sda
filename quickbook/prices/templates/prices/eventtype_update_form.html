@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Edytuj usługę{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Edycja usługi</h1>
+    </div>
+</div>
+<div class="widget-container-clos-2">
+    <div class="widget white-bg box-shadow">
+        <form method="post" class="form">
+            {{ form }}
+            {% csrf_token %}
+            <button class="btn">Zmień</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

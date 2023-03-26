@@ -63,6 +63,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         cleaned_data = super().clean()
         return cleaned_data
 
+
 class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee

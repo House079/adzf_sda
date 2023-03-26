@@ -51,7 +51,15 @@ class EventTypeForm(forms.ModelForm):
         return duration
 
 
-
+class EventTypeUpdateForm(forms.ModelForm):
+    class Meta:
+        model = EventType
+        fields = ('event_name', 'price', 'duration')
+        labels = {
+            'event_name': 'Nazwa usługi',
+            'price': 'Cena',
+            'duration': 'Czas trwania (hh:mm)',
+        }
 # class EventTypeForm(forms.ModelForm):
 #     class Meta:
 #         model = EventType

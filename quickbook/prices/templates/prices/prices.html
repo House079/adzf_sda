@@ -18,19 +18,24 @@
         <h1>Cennik</h1>
         <div class="table-responsive-container">
             <table class="table min-width-75 table-text-align-center">
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Cena</th>
-                    <th>Czas trwania</th>
-                </tr>
-                {% for event in object_list %}
-                <tr>
-                    <td>{{ event.event_name }}</td>
-                    <td>{{ event.price }}</td>
-                    <td>{{ event.duration }}</td>
-                </tr>
-                {% endfor %}
-            </table>
+                    <tbody>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Cena</th>
+                        <th>Czas trwania</th>
+                        <th>Edycja</th>
+                    </tr>
+                    {% for event in object_list %}
+                    <tr>
+                        <td>{{ event.event_name }}</td>
+                        <td>{{ event.price }}</td>
+                        <td>{{ event.duration }}</td>
+                        <td><a href="{% url 'prices:delete' event.pk %}"><button class="btn" style="min-width: 50px">Usuń</button></a>
+                        <a href="{% url 'prices:update' event.pk %}"><button class="btn" style="min-width: 50px">Edytuj</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </tbody>
         </div>
     </div>
 </div>

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Czy na pewno chcesz usunąć pracownika{% endblock %}
+{% block title %}Czy na pewno chcesz usunąć usługę{% endblock %}
 
 {% block content %}
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
-        <h1>Czy na pewno chcesz usunąć tego pracownika: {{ employee.name }} {{ employee.surname }}?</h1>
+        <h1>Czy na pewno chcesz usunąć tę usługę?</h1>
         <form method="post">
             {% csrf_token %}
             <button class="btn">Tak, na pewno</button>
-            <a class="btn" href="{% url 'users:employees_list' %}">Nie, wróć do listy pracowników</a>
+            <a class="btn" href="{% url 'prices:prices' %}">Nie, wróć do listy usług</a>
         </form>
     </div>
 </div>
