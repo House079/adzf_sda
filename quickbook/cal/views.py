@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import calendar
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -16,6 +17,7 @@ from django.shortcuts import get_object_or_404
 from salon.models import Salon
 from users.models import Employee
 from django.contrib.auth.decorators import user_passes_test
+
 
 def prev_month(d):
     first = d.replace(day=1)
@@ -58,6 +60,19 @@ class CalendarView(LoginRequiredMixin, ListView):
 class EventList(LoginRequiredMixin, ListView):
     model = Event
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.query = self.request.GET.get('q')
+        if self.query:
+            queryset = queryset.filter(
+                Q(title__icontains=self.query) | Q(description__icontains=self.query)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query  # Add the query variable to the context
+        return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event

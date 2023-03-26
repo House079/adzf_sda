@@ -72,6 +72,7 @@ class SalonUpdate(UpdateView):
         form.fields['details'].label = self.labels['details']
         return form
 
+
 @superuser_required()
 class SalonDelete(DeleteView):
     model = Salon
