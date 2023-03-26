@@ -5,13 +5,20 @@
 {% block header %} Appointments {% endblock header %}
 
 {% block content %}
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+        <h1>Lista wizyt</h1>
+    </div>
+</div>
 
 <div class="widget-container">
     <div class="widget">
         <a class="btn" href="{% url 'cal:event_new' %}">Dodaj wizytę</a>
     </div>
 </div>
-
+<div class="widget-container">
+    <div class="widget white-bg box-shadow">
+    <div class="table-responsive-container">
     <table class="table table-text-align-center min-width-75">
         <tbody>
             <tr>
@@ -39,5 +46,7 @@
             {% endfor %}
         </tbody>
     </table>
-
+    </div>
+    </div>
+</div>
 {% endblock content %}

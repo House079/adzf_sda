@@ -12,14 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name='Salon',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Tytuł')),
-                ('description', models.TextField(verbose_name='Opis')),
-                ('day', models.DateField(verbose_name='Dzień')),
-                ('start_time', models.TimeField(verbose_name='Początek')),
-                ('end_time', models.TimeField(verbose_name='Koniec')),
+                ('name', models.CharField(max_length=50)),
+                ('city', models.CharField(max_length=30)),
+                ('address', models.CharField(max_length=255)),
+                ('details', models.TextField()),
             ],
         ),
     ]
