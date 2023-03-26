@@ -76,3 +76,13 @@ class EmployeeUpdateForm(forms.ModelForm):
             'salon': 'Przypisz salon',
             'is_superuser': 'Uprawnienia Admina'
         }
+
+
+class PasswordChangeForm(UserCreationForm):
+    class Meta:
+        model = Employee
+        fields = ('password1', 'password2')
+        labels = {
+            'password1': 'Hasło',
+            'password2': 'Potwórz hasło',
+        }

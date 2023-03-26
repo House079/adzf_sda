@@ -13,6 +13,7 @@
             {{ form }}
             {% csrf_token %}
             <button class="btn">Zmień</button>
+            <a class="btn" href="{% url 'users:password_change' employee.pk%}">Zmień hasło</a>
         </form>
     </div>
 </div>
