@@ -15,21 +15,19 @@
     <div class="widget">
         <a class="btn" href="{% url 'cal:event_new' %}">Dodaj wizytę</a>
     </div>
-        <div>
-            <form method="GET">
-                <input type="text" name="q" placeholder="Nazwa/Opis">
-                <button type="submit">Szukaj</button>
-            </form>
-        {% if request.GET.q %}
-            <a href="?"><button type="button">Wyczyść</button></a>
-                {% if query %}
-            <p>Wyniki wyszukiwania: "{{ query }}"</p>
-    {% endif %}
-    {% endif %}
-    </div>
 </div>
 <div class="widget-container">
     <div class="widget white-bg box-shadow">
+        <form method="GET" class="form">
+            <input type="text" name="q" placeholder="Nazwa/Opis">
+            <button class="btn" type="submit">Szukaj</button>
+            {% if request.GET.q %}
+                <a class="btn" href="?">Wyczyść</a>
+                    {% if query %}
+                        <p>Wyniki wyszukiwania dla: "{{ query }}"</p>
+                    {% endif %}
+            {% endif %}
+        </form>
     <div class="table-responsive-container">
     <table class="table table-text-align-center min-width-75">
         <tbody>
