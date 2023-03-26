@@ -16,6 +16,9 @@ class Event(models.Model):
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=SET_NULL, null=True)
 
+    class Meta:
+        ordering = ['day', 'start_time']
+    
     @property
     def get_url(self):
         return reverse('cal:event_edit', args=(self.id,))
