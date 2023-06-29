@@ -74,6 +74,7 @@ class EventList(LoginRequiredMixin, ListView):
         context['query'] = self.query  # Add the query variable to the context
         return context
 
+
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
 

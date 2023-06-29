@@ -53,7 +53,7 @@ class PasswordChangeUpdate(UpdateView):
     model = Employee
     template_name = 'users/employee_change_password_form.html'
     form_class = PasswordChangeForm
-    success_url = reverse_lazy('users:employee_list')
+    success_url = reverse_lazy('users:employees_list')
 
 
 
