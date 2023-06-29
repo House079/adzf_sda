@@ -20,8 +20,15 @@ Instrukcja do uruchomienia wersji testowej aplikacji:
 TODO
 
 ## Preview
+
 Wersja desktopowa
-<img src="./public/main.png">
+
+<p align="center">
+  <img src="./public/main.png">
+</p>
 
 Wersja mobilna
-<img src="./public/mobile.png">
+
+<p align="center">
+  <img src="./public/mobile.png">
+</p>
