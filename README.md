@@ -1,3 +1,4 @@
+<img src="./public/title.png">
 **Quickbook** jest aplikacją webową służącą do zapisywania wizyt w salonie fryzjerskim.
 
 ## Funkcje
